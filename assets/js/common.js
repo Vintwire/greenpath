@@ -1,6 +1,6 @@
 $(function(){
     // nav 선택 및 스크롤 이동 시 버튼 변화
-    const $sections = $(".move-sec-wrap");
+    const $sections = $(".move-sec");
     const $navLinks = $(".move-control a");
 
     function getVisibleSection() {
@@ -13,9 +13,9 @@ $(function(){
         const height = rect.height;
 
         const visibleHeight = Math.max(0, Math.min(window.innerHeight, rect.bottom) - Math.max(0, rect.top));
-        const ratio = visibleHeight / height;
+        const ratio = visibleHeight / window.innerHeight;
 
-        if (ratio >= 0.6 && ratio > maxVisibleRatio) {
+        if (ratio >= 0.4 && ratio > maxVisibleRatio) {
             maxVisibleRatio = ratio;
             mostVisibleId = $el.attr("id");
         }

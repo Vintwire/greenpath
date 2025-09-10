@@ -374,13 +374,11 @@ footer .ft-inner .ft-bottom .util-wrap li > a {
 .move-area .nav-wrap nav .move-control li > a.on {
   color: #000;
 }
-.move-area .section-wrap {
-  width: 100%;
-}
 
 .cleanon-main-sec {
   position: relative;
   width: 100%;
+  margin-bottom: 200px;
 }
 .cleanon-main-sec .inner {
   position: relative;
@@ -431,7 +429,7 @@ footer .ft-inner .ft-bottom .util-wrap li > a {
   background: rgba(1, 161, 104, 0.14);
 }
 .cleanon-main-sec .inner .txt-wrap .main-copy {
-  margin-top: 38px 0 10px;
+  margin: 38px 0 10px;
   font-size: 30px;
   font-weight: 700;
 }
@@ -472,4 +470,93 @@ footer .ft-inner .ft-bottom .util-wrap li > a {
 }
 .cleanon-main-sec .inner .download-wrap button.ios-btn {
   background: url(../../assets/images/common/apple.svg) no-repeat center left 23.5px/24px #2E2E2E;
+}
+
+.detail-sec {
+  width: 100%;
+  margin-bottom: 300px;
+}
+.detail-sec .inner {
+  width: calc(100% - 60px);
+  max-width: 1310px;
+  margin: 0 auto;
+}
+.detail-sec .inner .detail-info {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 110px;
+}
+.detail-sec .inner .detail-info .img-wrap {
+  width: 652px;
+  height: 490px;
+  border-radius: 30px;
+  overflow: hidden;
+}
+.detail-sec .inner .detail-info .img-wrap > img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.detail-sec .inner .detail-info .img-wrap.big {
+  height: 867px;
+}
+.detail-sec .inner .detail-info .txt-wrap {
+  width: calc(100% - 762px);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+.detail-sec .inner .detail-info .txt-wrap .point {
+  display: block;
+  margin-top: 30px;
+  margin-bottom: 14px;
+  color: #00B809;
+  font-size: 20px;
+  font-weight: 700;
+}
+.detail-sec .inner .detail-info .txt-wrap .main-tit {
+  display: block;
+  margin-bottom: 50px;
+  color: #2E2E2E;
+  font-size: 40px;
+  font-weight: 700;
+}
+.detail-sec .inner .detail-info .txt-wrap .main-tit > span {
+  font-size: 24px;
+}
+.detail-sec .inner .detail-info .txt-wrap .description {
+  color: #868D9B;
+  font-size: 22px;
+  line-height: 1.8;
+}
+.detail-sec .inner .detail-info .txt-wrap .description + .pdf-info {
+  margin-top: 26px;
+}
+.detail-sec .inner .detail-info .txt-wrap .pdf-info {
+  position: relative;
+  margin-top: 10px;
+  color: #868D9B;
+  font-size: 18px;
+  line-height: 1.8;
+  text-decoration: underline;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+.detail-sec .inner .detail-info .txt-wrap .pdf-info::before {
+  content: "";
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  background: url(../../assets/images/icon/pdf.svg) no-repeat center/contain;
+}
+.detail-sec .inner .detail-info.type01 {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: center;
+  align-items: flex-start;
 }
