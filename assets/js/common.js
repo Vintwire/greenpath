@@ -36,4 +36,23 @@ $(function(){
 
     // 초기 실행 (페이지 새로고침 시 적용되게)
     getVisibleSection();
+
+    // 메인화면 두 번째 섹션 슬라이드
+    const companySlide = new Swiper(".company-slide", {
+        slidesPerView: 1,
+        spaceBetween: 30,
+        observer: true,
+        observeParents: true,
+        pagination: {
+            el: ".swiper-pagination",
+        },
+        // breakpoints: {
+        //     480: {
+        //         slidesPerView: 2.2,  //브라우저가 480보다 클 때
+        //     },
+        //     768: {
+        //         slidesPerView: 3.2,  //브라우저가 768보다 클 때
+        //     },
+        // },
+    });
 });
