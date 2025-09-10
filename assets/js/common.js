@@ -1,4 +1,20 @@
 $(function(){
+    
+    // 맨 위로 이동 버튼
+    $('.top-btn').hide();
+    $(window).scroll(function () {
+        if ($(this).scrollTop() > 200) {
+            $('.top-btn').fadeIn(300);
+        } else {
+            $('.top-btn').fadeOut(300);
+        }
+    });
+
+    $('.top-btn').click(function (e) {
+        e.preventDefault();
+        $('html, body').animate({ scrollTop: 0 }, 500);
+    });
+
     // nav 선택 및 스크롤 이동 시 버튼 변화
     const $sections = $(".move-sec");
     const $navLinks = $(".move-control a");

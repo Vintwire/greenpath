@@ -7,7 +7,7 @@ header {
     width: 100%;
     background: rgba(255, 255, 255, 0.70);
     backdrop-filter: blur(10px);
-    z-index: 10;
+    z-index: 30;
     .hd-inner {
         width: 100%;
         height: 88px;
@@ -138,9 +138,28 @@ footer {
     }
 }
 
+.top-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 50px;
+    width: 60px;
+    height: 60px;
+    padding-top: 12.5px;
+    color: #868D9B;
+    font-size: 14px;
+    border-radius: 50%;
+    border: 1px solid #F2F3F6;
+    background: url(../../assets/images/icon/arrow_top.svg) no-repeat top 12.5px center/18px 14px rgba(255, 255, 255, 0.80);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.14);
+    touch-action: manipulation;
+    z-index: 100;
+    display: none;
+}
+
 #wrapper {
     width: 100%;
     margin: 0 auto;
+    background: util.$white;
     #wrap {
         width: 100%;
         margin-top: 88px;
@@ -536,15 +555,17 @@ footer {
     }
 }
 
+.company-sec {
+    margin-bottom: 220px;
+}
+
 // 회사소개
-.test {
+.slide-cont {
     @include util.flexbox(row, flex-start, stretch);
     overflow: hidden;
     .empty {
         position: relative;
-        width: 200px;
-        // height: 50px;
-        background: pink;
+        width: 310px;
         overflow: hidden;
         &::before {
             content: "";
@@ -553,12 +574,12 @@ footer {
             left: 0;
             width: 100%;
             height: 100%;
-            background: yellow;
-            z-index: 100;
+            background: util.$white;
+            z-index: 10;
         }
     }
-    .test-slide {
-        width: calc(100% - 200px);
+    .company-slide-wrap {
+        width: calc(100% - 310px);
         .company-slide {
             position: relative;
             .swiper-slide {
@@ -566,21 +587,73 @@ footer {
                 padding: 100px 0 0 120px;
                 @include util.flexbox(row, flex-start, flex-start);
                 border-radius: 40px;
-                background: url(/assets/images/common/company_bg01.png) no-repeat center/cover;
+                &.slide01 {
+                    background: url(/assets/images/common/company_bg01.png) no-repeat center/cover;
+                }
+                &.slide02 {
+                    background: url(/assets/images/common/company_bg02.png) no-repeat center/cover;
+                }
+                &.slide03 {
+                    background: url(/assets/images/common/company_bg03.png) no-repeat center/cover;
+                }
+                &.slide04 {
+                    background: url(/assets/images/common/company_bg04.png) no-repeat center/cover;
+                }
                 .main-txt-wrap {
                     @include util.flexbox(column, flex-start, flex-start);
                     gap: 22px;
                     strong {
-                        color: #FFF;
+                        color: util.$white;
                         font-size: 60px;
                         font-weight: 700;
                         line-height: 1.5;
                     }
                     p {
-                        color: #FFF;
+                        color: util.$white;
                         font-size: 20px;
                         font-weight: 500;
                         line-height: 1.7;
+                    }
+                }
+                .txt-wrap {
+                    @include util.flexbox(column, flex-start, flex-start);
+                    span {
+                        color: util.$white;
+                        font-size: 90px;
+                        font-weight: 300;
+                        line-height: 1;
+                    }
+                    strong {
+                        color: util.$white;
+                        font-size: 60px;
+                        font-weight: 700;
+                        line-height: 1.5;
+                    }
+                    p {
+                        margin-top: 18px;
+                        color: util.$white;
+                        font-size: 21px;
+                        line-height: 2.4;
+                    }
+                    ul {
+                        margin-top: 18px;
+                        @include util.flexbox(column, flex-start, flex-start);
+                        li {
+                            position: relative;
+                            color: util.$white;
+                            font-size: 21px;
+                            line-height: 2.4;
+                            @include util.flexbox(row, flex-start, center);
+                            gap: 12px;
+                            &::before {
+                                content: "";
+                                display: inline-block;
+                                width: 5px;
+                                height: 5px;
+                                border-radius: 50%;
+                                background: #fff;
+                            }
+                        }
                     }
                 }
             }
@@ -595,6 +668,88 @@ footer {
 }
 
 .swiper-pagination-bullet-active {
-    background: #fff;
+    background: util.$white;
     opacity: 1;
+}
+
+.swiper-horizontal>.swiper-pagination-bullets, .swiper-pagination-bullets.swiper-pagination-horizontal, .swiper-pagination-custom, .swiper-pagination-fraction {
+    left: 120px;
+    bottom: 94px;
+    width: auto;
+}
+
+.contact-sec {
+    margin-bottom: 200px;
+}
+
+// 문의하기
+.contact-cont {
+    @include util.flexbox(row, flex-start, stretch);
+    overflow: hidden;
+    .empty {
+        position: relative;
+        width: 310px;
+        overflow: hidden;
+        &::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: util.$white;
+            z-index: 10;
+        }
+    }
+    .contact-wrap {
+        width: calc(100% - 310px);
+        @include util.flexbox(row, flex-start, center);
+        gap: 60px;
+        .map {
+            width: 800px;
+            height: 454px;
+            border-radius: 40px;
+            background: url(/assets/images/common/map.png) no-repeat center/cover;
+            overflow: hidden;
+        }
+        .txt-wrap {
+            strong {
+                color: #515E67;
+                font-size: 40px;
+                font-weight: 700;
+            }
+            ul {
+                margin-top: 80px;
+                @include util.flexbox(column, flex-start, flex-start);
+                gap: 40px;
+                li {
+                    @include util.flexbox(row, flex-start, center);
+                    gap: 24px;
+                    .icon {
+                        width: 60px;
+                        height: 60px;
+                        border-radius: 50%;
+                        &.location {
+                            background: url(/assets/images/icon/location.svg) no-repeat center #F2F3F6;
+                        }
+                        &.mail {
+                            background: url(/assets/images/icon/mail.svg) no-repeat center #F2F3F6;
+                        }
+                    }
+                    .info {
+                        @include util.flexbox(column, flex-start, flex-start);
+                        span {
+                            color: #515E67;
+                            font-size: 20px;
+                            font-weight: 700;
+                        }
+                        p, a {
+                            color: #515E67;
+                            font-size: 20px;
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
