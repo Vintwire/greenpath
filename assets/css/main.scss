@@ -299,10 +299,13 @@ footer {
             }
         }
     }
+    .move-sec {
+        scroll-margin-top: 88px;
+    }
 }
 
-// 클린온 메인 섹션
-.cleanon-main-sec {
+// 클린온/클린톡 메인 섹션
+.main-sec {
     position: relative;
     width: 100%;
     margin-bottom: 200px;
@@ -325,7 +328,7 @@ footer {
             width: 2089px;
             height: 1337px;
             border-radius: 2089px;
-            background: radial-gradient(95.64% 67.38% at 51.08% 33.84%, rgba(0, 209, 143, 0.30) 0%, rgba(0, 209, 10, 0.30) 42.03%, rgba(0, 209, 10, 0.00) 100%);
+            // background: radial-gradient(95.64% 67.38% at 51.08% 33.84%, rgba(0, 209, 143, 0.30) 0%, rgba(0, 209, 10, 0.30) 42.03%, rgba(0, 209, 10, 0.00) 100%);
             filter: blur(100px);
         }
         .txt-wrap {
@@ -335,12 +338,10 @@ footer {
                 gap: 6px;
                 li {
                     padding: 6px 12px;
-                    color: #01A168;
                     text-align: center;
                     font-size: 14px;
                     font-weight: 700;
                     border-radius: 6px;
-                    background: rgba(1, 161, 104, 0.14);
                 }
             }
             .main-copy {
@@ -349,7 +350,6 @@ footer {
                 font-weight: 700;
             }
             .main-tit {
-                color: #01A168;
                 font-size: 70px;
                 font-weight: 700;
             }
@@ -385,9 +385,45 @@ footer {
             }
         }
     }
+    &.cleanon-main-sec {
+        .inner {
+            &::before {
+                background: radial-gradient(95.64% 67.38% at 51.08% 33.84%, rgba(0, 209, 143, 0.30) 0%, rgba(0, 209, 10, 0.30) 42.03%, rgba(0, 209, 10, 0.00) 100%);
+            }
+            .txt-wrap {
+                .tag-list {
+                    li {
+                        color: #01A168;
+                        background: rgba(1, 161, 104, 0.14);
+                    }
+                }
+                .main-tit {
+                    color: #01A168;
+                }
+            }
+        }
+    }
+    &.cleantok-main-sec {
+        .inner {
+            &::before {
+                background: radial-gradient(95.64% 67.38% at 51.08% 33.84%, rgba(0, 51, 177, 0.50) 0%, rgba(196, 215, 255, 0.50) 85.37%, rgba(196, 215, 255, 0.00) 100%);
+            }
+            .txt-wrap {
+                .tag-list {
+                    li {
+                        color: #4972D7;
+                        background: rgba(73, 114, 215, 0.14);
+                    }
+                }
+                .main-tit {
+                    color: #4972D7;
+                }
+            }
+        }
+    }
 }
 
-// 클린온 상세 설명 섹션
+// 클린온/클린톡 상세 설명 섹션
 .detail-sec {
     width: 100%;
     margin-bottom: 300px;
@@ -396,7 +432,8 @@ footer {
         max-width: 1310px;
         margin: 0 auto;
         .detail-info {
-            @include util.flexbox(row, center, flex-start);
+            padding: 30px 0;
+            @include util.flexbox(row, center, stretch);
             gap: 110px;
             .img-wrap {
                 width: 652px;
@@ -414,53 +451,150 @@ footer {
             }
             .txt-wrap {
                 width: calc(100% - 762px);
-                @include util.flexbox(column, flex-start, flex-start);
-                .point {
-                    display: block;
-                    margin-top: 30px;
-                    margin-bottom: 14px;
-                    color: #00B809;
-                    font-size: 20px;
-                    font-weight: 700;
-                }
-                .main-tit {
-                    display: block;
-                    margin-bottom: 50px;
-                    color: #2E2E2E;
-                    font-size: 40px;
-                    font-weight: 700;
-                    > span {
-                        font-size: 24px;
+                @include util.flexbox(column, space-between, flex-start);
+                .top-wrap {
+                    .point {
+                        display: block;
+                        margin-bottom: 14px;
+                        color: #00B809;
+                        font-size: 20px;
+                        font-weight: 700;
+                        &.blue {
+                            color: #4267C3;
+                        }
+                    }
+                    .main-tit {
+                        display: block;
+                        margin-bottom: 50px;
+                        color: #2E2E2E;
+                        font-size: 40px;
+                        font-weight: 700;
+                        > span {
+                            font-size: 24px;
+                        }
+                    }
+                    .description {
+                        color: #868D9B;
+                        font-size: 22px;
+                        line-height: 1.8;
+                        & + .pdf-info {
+                            margin-top: 26px;
+                        }
+                    }
+                    .pdf-info {
+                        position: relative;
+                        margin-top: 10px;
+                        color: #868D9B;
+                        font-size: 18px;
+                        line-height: 1.8;
+                        text-decoration: underline;
+                        @include util.flexbox(row, flex-start, center);
+                        &::before {
+                            content: "";
+                            display: inline-block;
+                            width: 30px;
+                            height: 30px;
+                            background: url(../../assets/images/icon/pdf.svg) no-repeat center/contain;
+                        }
                     }
                 }
-                .description {
-                    color: #868D9B;
-                    font-size: 22px;
-                    line-height: 1.8;
-                    & + .pdf-info {
-                        margin-top: 26px;
-                    }
-                }
-                .pdf-info {
-                    position: relative;
-                    margin-top: 10px;
-                    color: #868D9B;
-                    font-size: 18px;
-                    line-height: 1.8;
-                    text-decoration: underline;
-                    @include util.flexbox(row, flex-start, center);
-                    &::before {
-                        content: "";
-                        display: inline-block;
-                        width: 30px;
-                        height: 30px;
-                        background: url(../../assets/images/icon/pdf.svg) no-repeat center/contain;
+                .bottom-wrap {
+                        @include util.flexbox(column, flex-start, flex-start);
+                        gap: 40px;
+                    .summary-wrap {
+                            @include util.flexbox(column, flex-start, flex-start);
+                            gap: 10px;
+                        span {
+                            font-size: 20px;
+                            font-weight: 700;
+                            line-height: 1.8;
+                        }
+                        ul {
+                            @include util.flexbox(row, flex-start, center);
+                            gap: 4px;
+                            li {
+                                padding: 0 8px;
+                                font-size: 14px;
+                                font-weight: 600;
+                                line-height: 1.8;
+                                border-radius: 4px;
+                                background: rgba(165, 173, 190, 0.30);
+                            }
+                        }
+                        p {
+                            font-size: 16px;
+                            line-height: 1.8;
+                            letter-spacing: -0.02em;
+                        }
                     }
                 }
             }
             &.type01 {
-                @include util.flexbox(row-reverse, center, flex-start);
+                @include util.flexbox(row-reverse, center, stretch);
             }
         }
     }
+}
+
+// 회사소개
+.test {
+    @include util.flexbox(row, flex-start, stretch);
+    overflow: hidden;
+    .empty {
+        position: relative;
+        width: 200px;
+        // height: 50px;
+        background: pink;
+        overflow: hidden;
+        &::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: yellow;
+            z-index: 100;
+        }
+    }
+    .test-slide {
+        width: calc(100% - 200px);
+        .company-slide {
+            position: relative;
+            .swiper-slide {
+                height: 646px;
+                padding: 100px 0 0 120px;
+                @include util.flexbox(row, flex-start, flex-start);
+                border-radius: 40px;
+                background: url(/assets/images/common/company_bg01.png) no-repeat center/cover;
+                .main-txt-wrap {
+                    @include util.flexbox(column, flex-start, flex-start);
+                    gap: 22px;
+                    strong {
+                        color: #FFF;
+                        font-size: 60px;
+                        font-weight: 700;
+                        line-height: 1.5;
+                    }
+                    p {
+                        color: #FFF;
+                        font-size: 20px;
+                        font-weight: 500;
+                        line-height: 1.7;
+                    }
+                }
+            }
+        }
+    }
+}
+
+// 스와이퍼 페이지네이션
+.swiper-pagination-bullet {
+    background: #515E67;
+    opacity: 1;
+}
+
+.swiper-pagination-bullet-active {
+    background: #fff;
+    opacity: 1;
 }
