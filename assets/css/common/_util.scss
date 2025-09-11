@@ -13,7 +13,7 @@ $white: #fff; //하얀색
 }
 
 @mixin tablet_junction{
-    @media (max-width: 930px){
+    @media (max-width: 950px){
         @content;
     }
 }
@@ -21,6 +21,13 @@ $white: #fff; //하얀색
 /* 테블릿 */
 @mixin tablet{
     @media (max-width: 768px){
+        @content;
+    }
+}
+
+/* 모바일 */
+@mixin mobile_junction{
+    @media (max-width: 560px){ 
         @content;
     }
 }
@@ -59,6 +66,10 @@ $white: #fff; //하얀색
 html {
     font-size: 10px;
     scroll-behavior: smooth;
+    &.is-scroll-lock {
+        overflow: hidden;
+        height: 100%;
+    }
 }
 
 body{
@@ -82,9 +93,21 @@ body{
 
 .d-pc{display: block;}
 
+.d-no{display: block;}
+
+.d-mj{display: none;}
+
 .d-mb{display: none;}
+
+@include notebook{
+    .d-no{display: block;}
+}
 
 @include tablet{
     .d-pc{display: none;}
     .d-mb{display: block;}
 }
+
+@include mobile_junction{
+    .d-mj{display: block;}
+} 
