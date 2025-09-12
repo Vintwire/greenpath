@@ -17,6 +17,7 @@ header {
         margin: 0 auto;
         @include util.flexbox(row, space-between, center);
         @include util.tablet_junction {
+            width: calc(100% - 40px);
             height: 70px;
         }
         .logo {
@@ -65,23 +66,36 @@ footer {
         max-width: 1580px;
         padding: 100px 0 140px;
         margin: 0 auto;
+        @include util.tablet_junction {
+            width: calc(100% - 40px);
+            padding: 60px 0 80px;
+        }
         .ft-top {
             margin-bottom: 10px;
             @include util.flexbox(row, space-between, center);
+            @include util.tablet_junction {
+                @include util.flexbox(column, flex-start, flex-start);
+            }
             strong {
                 font-size: 26px;
+                font-size: clamp(20px, 1.354vw, 26px);
                 font-weight: 700;
             }
             .contact {
                 @include  util.flexbox(column, flex-start, flex-start);
+                @include util.tablet_junction {
+                    margin: 24px 0;
+                }
                 span {
                     color: #515E67;
                     font-size: 16px;
+                    font-size: clamp(14px, 0.833vw, 16px);
                     font-weight: 700;
                 }
                 a {
                     color: #515E67;
                     font-size: 18px;
+                    font: clamp(16px, 0.938vw, 18px);
                     font-weight: 700;
                     letter-spacing: -0.04em;
                 }
@@ -92,6 +106,7 @@ footer {
             .company-name {
                 color: #515E67;
                 font-size: 16px;
+                font-size: clamp(14px, 0.833vw, 16px);
                 font-weight: 700;
                 letter-spacing: -0.04em;
             }
@@ -99,10 +114,15 @@ footer {
                 margin: 8px 0;
                 @include util.flexbox(row, flex-start, flex-start);
                 gap: 24px;
+                @include util.mobile_junction {
+                    flex-direction: column;
+                    gap: 0;
+                }
                 li {
                     position: relative;
                     color: #515E67;
                     font-size: 16px;
+                    font-size: clamp(14px, 0.833vw, 16px);
                     font-weight: 500;
                     letter-spacing: -0.04em;
                     &:first-child {
@@ -115,6 +135,9 @@ footer {
                             width: 1px;
                             height: 12px;
                             background: #515E67;
+                            @include util.mobile_junction {
+                                display: none;
+                            }
                         }
                     }
                 }
@@ -123,6 +146,7 @@ footer {
                 margin-bottom: 24px;
                 color: #515E67;
                 font-size: 16px;
+                font-size: clamp(14px, 0.833vw, 16px);
                 font-weight: 500;
                 letter-spacing: -0.04em;
             }
@@ -143,9 +167,10 @@ footer {
                             background: #515E67;
                         }
                     }
-                    > a{
+                    > a {
                         color: #515E67;
                         font-size: 16px;
+                        font-size: clamp(14px, 0.833vw, 16px);
                         font-weight: 700;
                         letter-spacing: -0.04em;
                     }
@@ -422,19 +447,21 @@ footer {
 }
 
 .move-area {
-    position: relative;
     .nav-wrap {
         position: absolute;
         top: 0;
         left: 0;
-        bottom: 0;
-        width: 100%;
+        z-index: 999;
+        &.is-fixed {
+            position: fixed;
+        }
         @include util.notebook {
-                opacity: 0;
-                transition: opacity .2s ease;
-                &.reveal {
-                    opacity: 1;
-                }
+            width: 100%;
+            opacity: 0;
+            transition: opacity .2s ease;
+            &.reveal {
+                opacity: 1;
+            }
             &.on {
                 &::before {
                     content: "";
@@ -449,8 +476,7 @@ footer {
             }
         }
         .nav-btn-wrap {
-            position: sticky;
-            top: 0;
+            position: relative;
             width: 100%;
             padding: 0 60px;
             height: 68px;
@@ -539,6 +565,7 @@ footer {
             }
         }
     }
+    position: relative;
     .move-sec {
         scroll-margin-top: 88px;
     }
@@ -784,11 +811,46 @@ footer {
         width: calc(100% - 60px);
         max-width: 1310px;
         margin: 0 auto;
+        @include util.tablet_junction {
+            width: calc(100% - 40px);
+        }
         .detail-info {
             padding: 30px 0;
             @include util.flexbox(row, center, stretch);
             gap: 110px;
             gap: clamp(35px, 5.729vw, 110px);
+            @include util.tablet_junction {
+                @include util.flexbox(column, flex-start, center);
+            }
+            .mo-txt-wrap {
+                display: none;
+                .point {
+                    display: block;
+                    margin-bottom: 14px;
+                    color: #00B809;
+                    font-size: 20px;
+                    font-size: clamp(14px, 1.042vw, 20px);
+                    font-weight: 700;
+                    &.blue {
+                        color: #4267C3;
+                    }
+                }
+                .main-tit {
+                    display: block;
+                    margin-bottom: 50px;
+                    color: #2E2E2E;
+                    font-size: 40px;
+                    font-size: clamp(24px, 2.083vw, 40px);
+                    font-weight: 700;
+                    > span {
+                        font-size: 24px;
+                        font-size: clamp(14px, 1.25vw, 24px);
+                    }
+                }
+                @include util.tablet_junction {
+                    display: block;
+                }
+            }
             .img-wrap {
                 width: 652px;
                 width: clamp(434.6px, 33.958vw, 652px);
@@ -819,6 +881,9 @@ footer {
                         &.blue {
                             color: #4267C3;
                         }
+                        @include util.tablet_junction {
+                            display: none;
+                        }
                     }
                     .main-tit {
                         display: block;
@@ -830,6 +895,9 @@ footer {
                         > span {
                             font-size: 24px;
                             font-size: clamp(14px, 1.25vw, 24px);
+                        }
+                        @include util.tablet_junction {
+                            display: none;
                         }
                     }
                     .description {
@@ -897,6 +965,9 @@ footer {
             }
             &.type01 {
                 @include util.flexbox(row-reverse, center, stretch);
+                @include util.tablet_junction {
+                    @include util.flexbox(column, flex-start, center);
+                }
             }
         }
     }
@@ -913,11 +984,20 @@ footer {
     margin: 0 auto;
     @include util.flexbox(row, flex-start, stretch);
     overflow: hidden;
+    @include util.tablet_junction {
+        width: calc(100% - 40px);
+    }
     .empty {
         position: relative;
         width: 310px;
         width: clamp(100px, 16.146vw, 310px);
         overflow: hidden;
+        @include util.notebook {
+            display: none;
+            &::before {
+                display: none;
+            }
+        }
         &::before {
             content: "";
             position: absolute;
@@ -932,6 +1012,9 @@ footer {
     .company-slide-wrap {
         width: calc(100% - 310px);
         width: calc(100% - clamp(100px, 16.146vw, 310px));
+        @include util.notebook {
+            width: 100%;
+        }
         .company-slide {
             position: relative;
             .swiper-slide {
@@ -1051,11 +1134,20 @@ footer {
     margin: 0 auto;
     @include util.flexbox(row, flex-start, stretch);
     overflow: hidden;
+    @include util.tablet_junction {
+        width: calc(100% - 40px);
+    }
     .empty {
         position: relative;
         width: 310px;
         width: clamp(100px, 16.146vw, 310px);
         overflow: hidden;
+        @include util.notebook {
+            display: none;
+            &::before {
+                display: none;
+            }
+        }
         &::before {
             content: "";
             position: absolute;
@@ -1072,6 +1164,10 @@ footer {
         width: calc(100% - clamp(100px, 16.146vw, 310px));
         @include util.flexbox(row, flex-start, center);
         gap: 60px;
+        @include util.notebook {
+            width: 100%;
+            justify-content: center;
+        }
         .map {
             width: 800px;
             width: clamp(300px, 41.667vw, 800px);
