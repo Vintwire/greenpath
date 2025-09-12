@@ -305,54 +305,81 @@ $(function () {
         },
     });
 
-    $(".tab-menu").each(function () {
-        const $tabMenu = $(this);
-        const $tabList = $tabMenu.find(".tab-list > li");
-        const $tabIndicator = $tabMenu.find(".tab-indicator");
-        const $tabCont = $tabMenu.find(".tab-cont > div");
+$(".tab-menu").each(function () {
 
-        function updateIndicator($tab) {
-            const tabWidth = $tab.outerWidth();
-            const tabOffset = $tab.position().left;
-            $tabIndicator.css({
-                width: `${tabWidth}px`,
-                left: `${tabOffset}px`,
-            });
+    const $tabMenu = $(this);
+    const $tabList = $tabMenu.find(".tab-list > li");
+    const $tabIndicator = $tabMenu.find(".tab-indicator");
+    const $tabCont = $tabMenu.find(".tab-cont > div"); // #terms, #privacy 패널
+
+    function updateIndicator($tab) {
+        const tabWidth = $tab.outerWidth();
+        const tabOffset = $tab.position().left;
+        $tabIndicator.css({ width: `${tabWidth}px`, left: `${tabOffset}px` });
+    }
+
+    function setActiveByIndex(idx, { updateHash = false, focusTab = false } = {}) {
+        if (idx < 0 || idx >= $tabList.length) return;
+        const $tab = $tabList.eq(idx);
+        const $panel = $tabCont.eq(idx);
+
+        $tabList.removeClass("on");
+        $tabCont.removeClass("on");
+        $tab.addClass("on");
+        $panel.addClass("on");
+
+        updateIndicator($tab);
+
+        if (focusTab) $tab.find('a,button,[tabindex]').first().trigger('focus');
+
+        // URL 해시 동기화(딥링크/뒤로가기 대응)
+        if (updateHash) {
+            const id = $panel.attr("id"); // terms / privacy
+            if (id) {
+                if (history.replaceState) history.replaceState(null, "", `#${id}`);
+                else location.hash = id; // 구형 브라우저용
+            }
         }
 
-        const $currentTab = $tabList.filter(".on");
-        const initIndex = $tabList.index($currentTab);
-        const $initPanel = $tabCont.eq(initIndex);
+        // 필요 시 외부 너비 재계산 훅
+        setTimeout(() => {
+            if (typeof window.updateBarWidths === "function") window.updateBarWidths();
+        }, 0);
+    }
 
-        $tabCont.removeClass("on");
-        $initPanel.addClass("on");
+    function setActiveByHash(hash) {
+        if (!hash) return false;
+        const $panel = $tabCont.filter(hash);
+        if (!$panel.length) return false;
+        const idx = $tabCont.index($panel);
+        setActiveByIndex(idx);
+        return true;
+    }
 
-        updateIndicator($currentTab);
+    // ===== 초기화: 해시 우선 → 기존 .on → 첫 번째 탭
+    let inited = setActiveByHash(location.hash);
+    if (!inited) {
+        const initIndex = Math.max(0, $tabList.index($tabList.filter(".on")));
+        setActiveByIndex(initIndex);
+    }
 
-        $(window).on("resize", function () {
-            updateIndicator($tabList.filter(".on"));
-        });
-
-        // 클릭 이벤트
-        $tabList.on("click", function () {
-            const $newTab = $(this);
-            const tabIndex = $tabList.index(this);
-            const $newPanel = $tabCont.eq(tabIndex);
-
-            $tabList.removeClass("on");
-            $tabCont.removeClass("on");
-
-            $newTab.addClass("on");
-            $newPanel.addClass("on");
-
-            updateIndicator($newTab);
-
-            setTimeout(() => {
-                if (typeof window.updateBarWidths === 'function') {
-                    window.updateBarWidths();
-                }
-            }, 0);
-        });
+    // 리사이즈 시 인디케이터 위치 재계산
+    $(window).on("resize", function () {
+        updateIndicator($tabList.filter(".on"));
     });
+
+    // 탭 클릭: 탭 전환 + 해시 갱신(딥링크)
+    $tabList.on("click", function (e) {
+        e.preventDefault();
+        const idx = $tabList.index(this);
+        setActiveByIndex(idx, { updateHash: true });
+    });
+
+    // 뒤/앞으로 가기 or 외부(푸터)에서 #terms/#privacy로 진입 시
+    $(window).on("hashchange", function () {
+        setActiveByHash(location.hash);
+    });
+});
+
 
 });
