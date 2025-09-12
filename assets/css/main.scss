@@ -20,6 +20,9 @@ header {
             width: calc(100% - 40px);
             height: 70px;
         }
+        @include util.mobile_junction {
+            height: 48px;
+        }
         .logo {
             > a {
                 display: block;
@@ -28,6 +31,10 @@ header {
                 @include util.tablet_junction {
                     width: 140px;
                     height: 31.2px;
+                }
+                @include util.mobile_junction {
+                    width: 108px;
+                    height: 24px;
                 }
                 img {
                     width: 100%;
@@ -50,6 +57,11 @@ header {
                 width: 89.6px;
                 height: 35.2px;
                 font-size: 14px;
+            }
+            @include util.mobile_junction {
+                width: 82px;
+                height: 30px;
+                font-size: 12px;
             }
         }
     }
@@ -178,6 +190,23 @@ footer {
             }
         }
     }
+    .sub-ft-inner {
+        padding: 30px 0;
+        @include util.flexbox(row, center, center);
+        gap: 8px;
+        .company-name {
+            color: #515E67;
+            font-size: 16px;
+            font-weight: 700;
+            letter-spacing: -0.04em;
+        }
+        .copyright {
+            color: #515E67;
+            font-size: 16px;
+            font-weight: 500;
+            letter-spacing: -0.04em;
+        }
+    }
 }
 
 .top-btn {
@@ -216,8 +245,11 @@ footer {
     .inner-wrap {
         width: 100%;
         @include util.tablet_junction {
-            padding-top: 88px;
+            padding-top: 70px;
             overflow: hidden;
+        }        
+        @include util.tablet_junction {
+            padding-top: 48px;
         }
     }
     .inner {
@@ -582,6 +614,9 @@ footer {
         gap: 50px;
         overflow: hidden;
     }
+    @include util.mobile_junction {
+        margin-bottom: 120px;
+    }
     .inner {
         position: relative;
         width: calc(100% - 60px);
@@ -807,6 +842,12 @@ footer {
 .detail-sec {
     width: 100%;
     margin-bottom: 300px;
+    @include util.tablet_junction {
+        margin-bottom: 200px;
+    }
+    @include util.mobile_junction {
+        margin-bottom: 140px;
+    }
     .inner {
         width: calc(100% - 60px);
         max-width: 1310px;
@@ -820,13 +861,19 @@ footer {
             gap: 110px;
             gap: clamp(35px, 5.729vw, 110px);
             @include util.tablet_junction {
-                @include util.flexbox(column, flex-start, center);
+                width: max-content;
+                margin: 0 auto;
+                padding: 0;
+                @include util.flexbox(column, flex-start, flex-start);
+                gap: 0;
+            }
+            @include util.mobile_junction {
+                width: 100%;
             }
             .mo-txt-wrap {
                 display: none;
                 .point {
                     display: block;
-                    margin-bottom: 14px;
                     color: #00B809;
                     font-size: 20px;
                     font-size: clamp(14px, 1.042vw, 20px);
@@ -837,7 +884,6 @@ footer {
                 }
                 .main-tit {
                     display: block;
-                    margin-bottom: 50px;
                     color: #2E2E2E;
                     font-size: 40px;
                     font-size: clamp(24px, 2.083vw, 40px);
@@ -856,16 +902,30 @@ footer {
                 width: clamp(434.6px, 33.958vw, 652px);
                 height: 490px;
                 height: clamp(326.6px, 25.521vw, 490px);
-                border-radius: 30px;
                 overflow: hidden;
+                @include util.tablet_junction {
+                    margin: 20px 0;
+                }
+                @include util.mobile_junction {
+                    width: 100%;
+                    height: auto;
+                }
                 > img {
                     width: 100%;
                     height: 100%;
+                    border-radius: 30px;
                     object-fit: contain;
+                    @include util.mobile_junction {
+                        height: auto;
+                        border-radius: 15px;
+                    }
                 }
                 &.big {
                     height: 867px;
-                    height: clamp(578px, 45.156vw, 867px)
+                    height: clamp(578px, 45.156vw, 867px);
+                    @include util.mobile_junction {
+                        height: auto;
+                    }
                 }
             }
             .txt-wrap {
@@ -907,6 +967,9 @@ footer {
                         line-height: 1.8;
                         & + .pdf-info {
                             margin-top: 26px;
+                            @include util.tablet_junction {
+                                margin-top: 8px;
+                            }
                         }
                     }
                     .pdf-info {
@@ -918,6 +981,17 @@ footer {
                         line-height: 1.8;
                         text-decoration: underline;
                         @include util.flexbox(row, flex-start, center);
+                        &.mo {
+                            display: none;
+                        }
+                        @include util.tablet_junction {
+                            &.mo {
+                                display: block;
+                            }
+                            &.pc {
+                                display: none;
+                            }
+                        }
                         &::before {
                             content: "";
                             display: inline-block;
@@ -966,7 +1040,7 @@ footer {
             &.type01 {
                 @include util.flexbox(row-reverse, center, stretch);
                 @include util.tablet_junction {
-                    @include util.flexbox(column, flex-start, center);
+                    @include util.flexbox(column, flex-start, flex-start);
                 }
             }
         }
@@ -1024,17 +1098,33 @@ footer {
                 padding: clamp(45px, 5.208vw, 100px) 0 0 clamp(20px, 6.25vw ,120px);
                 @include util.flexbox(row, flex-start, flex-start);
                 border-radius: 40px;
+                @include util.mobile_junction {
+                    height: 630px;
+                    border-radius: 20px;
+                }
                 &.slide01 {
-                    background: url(/assets/images/common/company_bg01.png) no-repeat center/cover;
+                    background: url(../../assets/images/common/company_bg01.png) no-repeat center/cover;
+                    @include util.mobile_junction {
+                        background: url(../../assets/images/common/mo/company_bg01.png) no-repeat center/cover;
+                    }
                 }
                 &.slide02 {
-                    background: url(/assets/images/common/company_bg02.png) no-repeat center/cover;
+                    background: url(../../assets/images/common/company_bg02.png) no-repeat center/cover;
+                    @include util.mobile_junction {
+                        background: url(../../assets/images/common/mo/company_bg02.png) no-repeat center/cover;
+                    }
                 }
                 &.slide03 {
-                    background: url(/assets/images/common/company_bg03.png) no-repeat center/cover;
+                    background: url(../../assets/images/common/company_bg03.png) no-repeat center/cover;
+                    @include util.mobile_junction {
+                        background: url(../../assets/images/common/mo/company_bg03.png) no-repeat center/cover;
+                    }
                 }
                 &.slide04 {
-                    background: url(/assets/images/common/company_bg04.png) no-repeat center/cover;
+                    background: url(../../assets/images/common/company_bg04.png) no-repeat center/cover;
+                    @include util.mobile_junction {
+                        background: url(../../assets/images/common/mo/company_bg04.png) no-repeat center/cover;
+                    }
                 }
                 .main-txt-wrap {
                     @include util.flexbox(column, flex-start, flex-start);
@@ -1062,6 +1152,9 @@ footer {
                         font-size: clamp(30px, 4.688vw, 90px);
                         font-weight: 300;
                         line-height: 1;
+                        @include util.mobile_junction {
+                            font-size: 50px;
+                        }
                     }
                     strong {
                         color: util.$white;
@@ -1121,10 +1214,18 @@ footer {
     bottom: 94px;
     bottom: clamp(20px, 4.896vw, 94px);
     width: auto;
+    @include util.mobile_junction {
+        left: 50%;
+        bottom: 20px;
+        transform: translateX(-50%);
+    }
 }
 
 .contact-sec {
     margin-bottom: 200px;
+    @include util.mobile_junction {
+        margin-bottom: 100px;
+    }
 }
 
 // 문의하기
@@ -1168,14 +1269,42 @@ footer {
             width: 100%;
             justify-content: center;
         }
+        @include util.tablet_junction {
+            width: auto;
+            margin: 0 auto;
+            @include util.flexbox(column, flex-start, flex-start);
+            gap: 30px;
+        }
+        @include util.tablet {
+            width: 100%;
+        }
+        .mo-txt-wrap {
+            color: #515E67;
+            font-size: 40px;
+            font-size: clamp(24px, 2.083vw, 40px);
+            font-weight: 700;
+            display: none;
+            @include util.tablet_junction {
+                display: block;
+            }
+        }
         .map {
             width: 800px;
             width: clamp(300px, 41.667vw, 800px);
             height: 454px;
             height: clamp(335px, 23.646vw, 454px);
             border-radius: 40px;
-            background: url(/assets/images/common/map.png) no-repeat center/cover;
+            background: url(../../assets/images/common/map.png) no-repeat center/cover;
             overflow: hidden;
+            @include util.tablet_junction {
+                width: 700px;
+            }
+            @include util.tablet {
+                width: 100%;
+            }
+            @include util.mobile_junction {
+                border-radius: 20px;
+            }
         }
         .txt-wrap {
             strong {
@@ -1183,11 +1312,20 @@ footer {
                 font-size: 40px;
                 font-size: clamp(24px, 2.083vw, 40px);
                 font-weight: 700;
+                @include util.tablet_junction {
+                    display: none;
+                }
             }
             ul {
                 margin-top: 80px;
                 @include util.flexbox(column, flex-start, flex-start);
                 gap: 40px;
+                @include util.tablet_junction {
+                    margin-top: 0;
+                }
+                @include util.mobile_junction {
+                    gap: 20px;
+                }
                 li {
                     @include util.flexbox(row, flex-start, center);
                     gap: 24px;
@@ -1195,11 +1333,21 @@ footer {
                         width: 60px;
                         height: 60px;
                         border-radius: 50%;
+                        @include util.mobile_junction {
+                            width: 36px;
+                            height: 36px;
+                        }
                         &.location {
-                            background: url(/assets/images/icon/location.svg) no-repeat center #F2F3F6;
+                            background: url(../../assets/images/icon/location.svg) no-repeat center #F2F3F6;
+                            @include util.mobile_junction {
+                                background-size: 22px;
+                            }
                         }
                         &.mail {
-                            background: url(/assets/images/icon/mail.svg) no-repeat center #F2F3F6;
+                            background: url(../../assets/images/icon/mail.svg) no-repeat center #F2F3F6;
+                            @include util.mobile_junction {
+                                background-size: 22px;
+                            }
                         }
                     }
                     .info {
