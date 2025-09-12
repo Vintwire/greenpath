@@ -305,81 +305,95 @@ $(function () {
         },
     });
 
-$(".tab-menu").each(function () {
+    $(".tab-menu").each(function () {
+        const $tabMenu = $(this);
+        const $tabList = $tabMenu.find(".tab-list > li");
+        const $tabIndicator = $tabMenu.find(".tab-indicator");
+        const $tabCont = $tabMenu.find(".tab-cont > div");
+        const $html = $("html");
 
-    const $tabMenu = $(this);
-    const $tabList = $tabMenu.find(".tab-list > li");
-    const $tabIndicator = $tabMenu.find(".tab-indicator");
-    const $tabCont = $tabMenu.find(".tab-cont > div"); // #terms, #privacy 패널
+        function updateIndicator($tab) {
+            const tabWidth = $tab.outerWidth();
+            const tabOffset = $tab.position().left;
+            $tabIndicator.css({ width: `${tabWidth}px`, left: `${tabOffset}px` });
+        }
 
-    function updateIndicator($tab) {
-        const tabWidth = $tab.outerWidth();
-        const tabOffset = $tab.position().left;
-        $tabIndicator.css({ width: `${tabWidth}px`, left: `${tabOffset}px` });
-    }
+        function forceScrollTop() {
+            const prev = $html.css("scroll-behavior");
+            $html.css("scroll-behavior", "auto");
+            window.scrollTo(0, 0);
+            $html.css("scroll-behavior", prev);
+        }
 
-    function setActiveByIndex(idx, { updateHash = false, focusTab = false } = {}) {
-        if (idx < 0 || idx >= $tabList.length) return;
-        const $tab = $tabList.eq(idx);
-        const $panel = $tabCont.eq(idx);
+        function setActiveByIndex(idx, { updateHash = false } = {}) {
+            if (idx < 0 || idx >= $tabList.length) return;
+            const $tab = $tabList.eq(idx);
+            const $panel = $tabCont.eq(idx);
 
-        $tabList.removeClass("on");
-        $tabCont.removeClass("on");
-        $tab.addClass("on");
-        $panel.addClass("on");
+            $tabList.removeClass("on");
+            $tabCont.removeClass("on");
+            $tab.addClass("on");
+            $panel.addClass("on");
 
-        updateIndicator($tab);
+            updateIndicator($tab);
 
-        if (focusTab) $tab.find('a,button,[tabindex]').first().trigger('focus');
+            if (updateHash) {
+            const id = $panel.attr("id"); // "terms" / "privacy"
+            if (id) history.replaceState(null, "", `#${id}`); // 점프 없이 URL만 갱신
+            }
 
-        // URL 해시 동기화(딥링크/뒤로가기 대응)
-        if (updateHash) {
-            const id = $panel.attr("id"); // terms / privacy
-            if (id) {
-                if (history.replaceState) history.replaceState(null, "", `#${id}`);
-                else location.hash = id; // 구형 브라우저용
+            if (typeof window.updateBarWidths === "function") {
+            setTimeout(window.updateBarWidths, 0);
             }
         }
 
-        // 필요 시 외부 너비 재계산 훅
-        setTimeout(() => {
-            if (typeof window.updateBarWidths === "function") window.updateBarWidths();
-        }, 0);
-    }
+        function setActiveByHash(hash) {
+            if (!hash) return false;
+            const $panel = $tabCont.filter(hash);
+            if (!$panel.length) return false;
+            const idx = $tabCont.index($panel);
+            setActiveByIndex(idx);
+            return true;
+        }
 
-    function setActiveByHash(hash) {
-        if (!hash) return false;
-        const $panel = $tabCont.filter(hash);
-        if (!$panel.length) return false;
-        const idx = $tabCont.index($panel);
-        setActiveByIndex(idx);
-        return true;
-    }
+        // ===== 초기화: (A) __initialHash 우선 → (B) 기존 .on → (C) 첫 번째 탭
+        let inited = false;
 
-    // ===== 초기화: 해시 우선 → 기존 .on → 첫 번째 탭
-    let inited = setActiveByHash(location.hash);
-    if (!inited) {
-        const initIndex = Math.max(0, $tabList.index($tabList.filter(".on")));
-        setActiveByIndex(initIndex);
-    }
+        // (A) head에서 저장해둔 초기 해시 사용 (native 점프는 이미 막힌 상태)
+        if (window.__initialHash) {
+            inited = setActiveByHash(window.__initialHash);
+            // 해시 복원(점프 없음)
+            history.replaceState(null, "", window.__initialHash);
+        }
 
-    // 리사이즈 시 인디케이터 위치 재계산
-    $(window).on("resize", function () {
-        updateIndicator($tabList.filter(".on"));
+        // (B) .on이 붙어있으면 그걸로
+        if (!inited) {
+            const initIndex = Math.max(0, $tabList.index($tabList.filter(".on")));
+            setActiveByIndex(initIndex);
+        }
+
+        // 안전핀: 초기엔 항상 최상단
+        forceScrollTop();
+
+        // 리사이즈
+        $(window).on("resize", function () {
+            updateIndicator($tabList.filter(".on"));
+        });
+
+        // 탭 클릭: 전환 + 해시 복원/갱신(점프 없음)
+        $tabList.on("click", function (e) {
+            e.preventDefault();
+            const idx = $tabList.index(this);
+            setActiveByIndex(idx, { updateHash: true });
+            forceScrollTop(); // 탭 전환 시에도 항상 맨 위 원하시면 유지, 아니면 제거
+        });
+
+        // 뒤/앞으로 가기 or 외부에서 해시만 바뀌는 경우
+        $(window).on("hashchange", function () {
+            setActiveByHash(location.hash);
+            forceScrollTop();
+        });
     });
-
-    // 탭 클릭: 탭 전환 + 해시 갱신(딥링크)
-    $tabList.on("click", function (e) {
-        e.preventDefault();
-        const idx = $tabList.index(this);
-        setActiveByIndex(idx, { updateHash: true });
-    });
-
-    // 뒤/앞으로 가기 or 외부(푸터)에서 #terms/#privacy로 진입 시
-    $(window).on("hashchange", function () {
-        setActiveByHash(location.hash);
-    });
-});
 
 
 });
