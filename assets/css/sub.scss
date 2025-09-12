@@ -78,6 +78,9 @@ footer {
         padding: 30px 0;
         @include util.flexbox(row, center, center);
         gap: 8px;
+        @include util.mobile_junction {
+            padding: 14px 0;
+        }
         .company-name {
             color: #515E67;
             font-size: 16px;
