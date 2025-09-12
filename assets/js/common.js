@@ -175,6 +175,13 @@ $(function () {
             $header.removeClass('is-hide');
         }
 
+        // .move-area 시작되면 nav-wrap에 .is-fixed 추가 / 해제
+        if (y >= areaTop) {
+            $navWrap.addClass('is-fixed');
+        } else {
+            $navWrap.removeClass('is-fixed');
+        }
+
         // reveal: 메뉴 열림/애니메이션 중이면 항상 유지
         if (isMobile()) {
             const menuActive = $navBtn.hasClass('on') || $menu.is(':visible') || $menu.is(':animated');
