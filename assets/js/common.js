@@ -303,13 +303,56 @@ $(function () {
         pagination: {
             el: ".swiper-pagination",
         },
-        // breakpoints: {
-        //     480: {
-        //         slidesPerView: 2.2,  //브라우저가 480보다 클 때
-        //     },
-        //     768: {
-        //         slidesPerView: 3.2,  //브라우저가 768보다 클 때
-        //     },
-        // },
     });
+
+    $(".tab-menu").each(function () {
+        const $tabMenu = $(this);
+        const $tabList = $tabMenu.find(".tab-list > li");
+        const $tabIndicator = $tabMenu.find(".tab-indicator");
+        const $tabCont = $tabMenu.find(".tab-cont > div");
+
+        function updateIndicator($tab) {
+            const tabWidth = $tab.outerWidth();
+            const tabOffset = $tab.position().left;
+            $tabIndicator.css({
+                width: `${tabWidth}px`,
+                left: `${tabOffset}px`,
+            });
+        }
+
+        const $currentTab = $tabList.filter(".on");
+        const initIndex = $tabList.index($currentTab);
+        const $initPanel = $tabCont.eq(initIndex);
+
+        $tabCont.removeClass("on");
+        $initPanel.addClass("on");
+
+        updateIndicator($currentTab);
+
+        $(window).on("resize", function () {
+            updateIndicator($tabList.filter(".on"));
+        });
+
+        // 클릭 이벤트
+        $tabList.on("click", function () {
+            const $newTab = $(this);
+            const tabIndex = $tabList.index(this);
+            const $newPanel = $tabCont.eq(tabIndex);
+
+            $tabList.removeClass("on");
+            $tabCont.removeClass("on");
+
+            $newTab.addClass("on");
+            $newPanel.addClass("on");
+
+            updateIndicator($newTab);
+
+            setTimeout(() => {
+                if (typeof window.updateBarWidths === 'function') {
+                    window.updateBarWidths();
+                }
+            }, 0);
+        });
+    });
+
 });
