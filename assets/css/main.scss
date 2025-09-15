@@ -225,6 +225,13 @@ footer {
     touch-action: manipulation;
     z-index: 100;
     display: none;
+    @include util.tablet {
+        right: 20px;
+        width: 44px;
+        height: 44px;
+        font-size: 11px;
+        background: url(../../assets/images/icon/arrow_top.svg) no-repeat top 8px center/14px 11px rgba(255, 255, 255, 0.80);
+    }
 }
 
 #wrapper {
