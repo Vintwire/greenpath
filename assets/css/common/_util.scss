@@ -5,6 +5,12 @@ $pretendard: 'Pretendard';
 $black: #2E2E2E; //검정색
 $white: #fff; //하얀색 
 
+@mixin notebook_junction{
+    @media (max-width: 1400px){ 
+        @content;
+    }
+}
+
 /* 노트북 */
 @mixin notebook{
     @media (max-width: 1280px){ 

@@ -1,5 +1,25 @@
 @use "./common/util";
 
+@keyframes floatingApp01 {
+    0% {
+        bottom: 0;
+    }
+
+    100% {
+        bottom: 20px;
+    }
+}
+
+@keyframes floatingApp02 {
+    0% {
+        top: 0;
+    }
+
+    100% {
+        top: -20px;
+    }
+}
+
 header {
     position: fixed;
     top: 0;
@@ -255,7 +275,7 @@ footer {
             padding-top: 70px;
             overflow: hidden;
         }        
-        @include util.tablet_junction {
+        @include util.mobile_junction {
             padding-top: 48px;
         }
     }
@@ -266,29 +286,28 @@ footer {
         margin: 0 auto;
         padding: 130px 140px;
         padding: clamp(40px, 6.771vw, 130px) clamp(20px, 7.292vw, 140px);
-        height: 962px;
-        height: clamp(720px, 50.104vw, 962px);
+        height: calc(100vh - 108px);
+        max-height: 800px;
+        max-height: clamp(600px, 41.667vw, 800px);
         border-radius: 40px;
         background: util.$white;
         @include util.flexbox(column, space-between, flex-start);
         overflow: hidden;
-        @include util.notebook {
-            height: 660px;
-        }
         @include util.tablet_junction {
-            width: calc(100% - 40px);
+            width: 100%;
             height: 720px;
+            max-height: 720px;
             overflow: visible;
         }
         @include util.mobile_junction {
-            padding-left: 0;
-            padding-right: 0;
+            padding-left: 20px;
+            padding-right: 20px;
         }
         &::before {
             content: "";
             position: absolute;
-            top: -70%;
-            left: -50%;
+            bottom: 5%;
+            right: 35%;
             width: 2391px;
             width: clamp(1594px, 124.531vw, 2391px);
             height: 1521px;
@@ -301,8 +320,8 @@ footer {
         &::after {
             content: "";
             position: absolute;
-            right: -50%;
-            bottom: -40%;
+            top: 80%;
+            left: 40%;
             width: 1702px;
             width: clamp(1134.6px, 88.646vw, 1702px);
             height: 939px;
@@ -312,7 +331,7 @@ footer {
             border-radius: 1702px;
             background: radial-gradient(101.7% 54.52% at 48.89% 32.34%, rgba(0, 209, 10, 0.30) 0%, rgba(0, 209, 143, 0.30) 58.18%, rgba(0, 209, 143, 0.00) 100%);
             filter: blur(100px);
-            @include util.notebook {
+            @include util.tablet_junction {
                 display: none;
             }
         }
@@ -325,12 +344,14 @@ footer {
                 font-size: 34px;
                 font-size: clamp(14px, 1.771vw, 34px);
                 font-weight: 700;
+                text-shadow: 0 1px 15px rgba(0,0,0,.15);
             }
             .main-tit {
                 color: util.$white;
                 font-size: 90px;
                 font-size: clamp(36px, 4.688vw, 90px);
                 font-weight: 700;
+                text-shadow: 0 1px 15px rgba(0,0,0,.15);
                 @include util.tablet {
                     line-height: 1.1;
                 }
@@ -343,6 +364,7 @@ footer {
                 font-weight: 500;
                 line-height: 1.8;
                 letter-spacing: -0.02em;
+                text-shadow: 0 1px 15px rgba(0,0,0,.15);
                 @include util.tablet_junction {
                     display: none;
                 }
@@ -352,11 +374,11 @@ footer {
             position: absolute;
             right: 100px;
             right: clamp(30px, 5.2vw, 100px);
-            bottom: -137px;
-            width: 846px;
-            width: clamp(460px, 44.063vw, 846px);
-            height: 1016px;
-            height: clamp(552px, 52.917vw, 1016px);
+            bottom: -7.813vw;
+            width: 740px;
+            width: clamp(370px, 38.542vw, 740px);
+            height: 888px;
+            height: clamp(444px, 46.25vw, 888px);
             z-index: 1;
             @include util.tablet_junction {
                 right: auto;
@@ -365,19 +387,42 @@ footer {
                 top: 105px;
                 transform: translateX(-50%);
             }
-            > img {
-                width: 100%;
-                height: 100%;
-                object-fit: contain;
+            @include util.mobile_junction {
+                width: 459px;
+                height: 552px;
+            }
+            img {
+                position: absolute;
+                &.cleanon-app {
+                    width: 449px;
+                    width: clamp(224.5px, 23.385vw, 449px);
+                    bottom: 0;
+                    left: 0;
+                    animation: floatingApp01 2s alternate-reverse infinite;
+                    @include util.mobile_junction {
+                        width: 279px;
+                    }
+                }
+                &.cleantok-app {
+                    width: 563px;
+                    width: clamp(281.5px, 29.323vw, 563px);
+                    top: 0;
+                    right: 0;
+                    animation: floatingApp02 2s 0.2s alternate-reverse infinite;
+                    @include util.mobile_junction {
+                        width: 350px;
+                    }
+                }
             }
         }
         .download-wrap {
             @include util.tablet_junction {
                 position: absolute;
                 left: 0;
-                bottom: 20px;
+                bottom: 0;
                 width: 100%;
                 padding-top: 50px;
+                padding-bottom: 20px;
                 background: linear-gradient(180deg, rgba(255, 255, 255, 0.00) 0%, #fff 36.63%);
                 z-index: 2;
             }

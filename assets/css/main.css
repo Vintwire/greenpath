@@ -71,6 +71,22 @@ body {
     display: block;
   }
 }
+@keyframes floatingApp01 {
+  0% {
+    bottom: 0;
+  }
+  100% {
+    bottom: 20px;
+  }
+}
+@keyframes floatingApp02 {
+  0% {
+    top: 0;
+  }
+  100% {
+    top: -20px;
+  }
+}
 header {
   position: fixed;
   top: 0;
@@ -377,7 +393,7 @@ footer .sub-ft-inner .copyright {
     overflow: hidden;
   }
 }
-@media (max-width: 950px) {
+@media (max-width: 560px) {
   .main-visual .inner-wrap {
     padding-top: 48px;
   }
@@ -389,8 +405,9 @@ footer .sub-ft-inner .copyright {
   margin: 0 auto;
   padding: 130px 140px;
   padding: clamp(40px, 6.771vw, 130px) clamp(20px, 7.292vw, 140px);
-  height: 962px;
-  height: clamp(720px, 50.104vw, 962px);
+  height: calc(100vh - 108px);
+  max-height: 800px;
+  max-height: clamp(600px, 41.667vw, 800px);
   border-radius: 40px;
   background: #fff;
   display: flex;
@@ -399,29 +416,25 @@ footer .sub-ft-inner .copyright {
   align-items: flex-start;
   overflow: hidden;
 }
-@media (max-width: 1280px) {
-  .main-visual .inner {
-    height: 660px;
-  }
-}
 @media (max-width: 950px) {
   .main-visual .inner {
-    width: calc(100% - 40px);
+    width: 100%;
     height: 720px;
+    max-height: 720px;
     overflow: visible;
   }
 }
 @media (max-width: 560px) {
   .main-visual .inner {
-    padding-left: 0;
-    padding-right: 0;
+    padding-left: 20px;
+    padding-right: 20px;
   }
 }
 .main-visual .inner::before {
   content: "";
   position: absolute;
-  top: -70%;
-  left: -50%;
+  bottom: 5%;
+  right: 35%;
   width: 2391px;
   width: clamp(1594px, 124.531vw, 2391px);
   height: 1521px;
@@ -434,8 +447,8 @@ footer .sub-ft-inner .copyright {
 .main-visual .inner::after {
   content: "";
   position: absolute;
-  right: -50%;
-  bottom: -40%;
+  top: 80%;
+  left: 40%;
   width: 1702px;
   width: clamp(1134.6px, 88.646vw, 1702px);
   height: 939px;
@@ -446,7 +459,7 @@ footer .sub-ft-inner .copyright {
   background: radial-gradient(101.7% 54.52% at 48.89% 32.34%, rgba(0, 209, 10, 0.3) 0%, rgba(0, 209, 143, 0.3) 58.18%, rgba(0, 209, 143, 0) 100%);
   filter: blur(100px);
 }
-@media (max-width: 1280px) {
+@media (max-width: 950px) {
   .main-visual .inner::after {
     display: none;
   }
@@ -464,12 +477,14 @@ footer .sub-ft-inner .copyright {
   font-size: 34px;
   font-size: clamp(14px, 1.771vw, 34px);
   font-weight: 700;
+  text-shadow: 0 1px 15px rgba(0, 0, 0, 0.15);
 }
 .main-visual .inner .txt-wrap .main-tit {
   color: #fff;
   font-size: 90px;
   font-size: clamp(36px, 4.688vw, 90px);
   font-weight: 700;
+  text-shadow: 0 1px 15px rgba(0, 0, 0, 0.15);
 }
 @media (max-width: 768px) {
   .main-visual .inner .txt-wrap .main-tit {
@@ -484,6 +499,7 @@ footer .sub-ft-inner .copyright {
   font-weight: 500;
   line-height: 1.8;
   letter-spacing: -0.02em;
+  text-shadow: 0 1px 15px rgba(0, 0, 0, 0.15);
 }
 @media (max-width: 950px) {
   .main-visual .inner .txt-wrap .main-copy {
@@ -494,11 +510,11 @@ footer .sub-ft-inner .copyright {
   position: absolute;
   right: 100px;
   right: clamp(30px, 5.2vw, 100px);
-  bottom: -137px;
-  width: 846px;
-  width: clamp(460px, 44.063vw, 846px);
-  height: 1016px;
-  height: clamp(552px, 52.917vw, 1016px);
+  bottom: -7.813vw;
+  width: 740px;
+  width: clamp(370px, 38.542vw, 740px);
+  height: 888px;
+  height: clamp(444px, 46.25vw, 888px);
   z-index: 1;
 }
 @media (max-width: 950px) {
@@ -510,18 +526,47 @@ footer .sub-ft-inner .copyright {
     transform: translateX(-50%);
   }
 }
-.main-visual .inner .app-img-wrap > img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
+@media (max-width: 560px) {
+  .main-visual .inner .app-img-wrap {
+    width: 459px;
+    height: 552px;
+  }
+}
+.main-visual .inner .app-img-wrap img {
+  position: absolute;
+}
+.main-visual .inner .app-img-wrap img.cleanon-app {
+  width: 449px;
+  width: clamp(224.5px, 23.385vw, 449px);
+  bottom: 0;
+  left: 0;
+  animation: floatingApp01 2s alternate-reverse infinite;
+}
+@media (max-width: 560px) {
+  .main-visual .inner .app-img-wrap img.cleanon-app {
+    width: 279px;
+  }
+}
+.main-visual .inner .app-img-wrap img.cleantok-app {
+  width: 563px;
+  width: clamp(281.5px, 29.323vw, 563px);
+  top: 0;
+  right: 0;
+  animation: floatingApp02 2s 0.2s alternate-reverse infinite;
+}
+@media (max-width: 560px) {
+  .main-visual .inner .app-img-wrap img.cleantok-app {
+    width: 350px;
+  }
 }
 @media (max-width: 950px) {
   .main-visual .inner .download-wrap {
     position: absolute;
     left: 0;
-    bottom: 20px;
+    bottom: 0;
     width: 100%;
     padding-top: 50px;
+    padding-bottom: 20px;
     background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, #fff 36.63%);
     z-index: 2;
   }
