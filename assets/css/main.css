@@ -942,10 +942,10 @@ footer .sub-ft-inner .copyright {
   height: 24px;
 }
 .main-sec .inner .download-wrap button:not(.cleanon-down-btn, .cleantok-down-btn).android-btn > span::before {
-  background: url(../../assets/images/common/google_play.svg) no-repeat center/contain;
+  background: url(../../assets/images/icon/google_play.svg) no-repeat center/contain;
 }
 .main-sec .inner .download-wrap button:not(.cleanon-down-btn, .cleantok-down-btn).ios-btn > span::before {
-  background: url(../../assets/images/common/apple.svg) no-repeat center/contain;
+  background: url(../../assets/images/icon/apple.svg) no-repeat center/contain;
 }
 .main-sec .inner .download-wrap .cleanon-down-btn,
 .main-sec .inner .download-wrap .cleantok-down-btn {
