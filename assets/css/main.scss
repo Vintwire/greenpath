@@ -1336,6 +1336,9 @@ footer {
                 li {
                     @include util.flexbox(row, flex-start, center);
                     gap: 24px;
+                    @include util.mobile_junction {
+                        gap: 12px;
+                    }
                     .icon {
                         width: 60px;
                         height: 60px;

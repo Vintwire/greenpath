@@ -1644,6 +1644,11 @@ footer .sub-ft-inner .copyright {
   align-items: center;
   gap: 24px;
 }
+@media (max-width: 560px) {
+  .contact-cont .contact-wrap .txt-wrap ul li {
+    gap: 12px;
+  }
+}
 .contact-cont .contact-wrap .txt-wrap ul li .icon {
   width: 60px;
   height: 60px;
