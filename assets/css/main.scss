@@ -272,6 +272,7 @@ footer {
         background: util.$white;
         @include util.flexbox(column, space-between, flex-start);
         overflow: hidden;
+        z-index: 2;
         @include util.notebook {
             height: 660px;
         }
@@ -287,8 +288,8 @@ footer {
         &::before {
             content: "";
             position: absolute;
-            top: -70%;
-            left: -50%;
+            bottom: 5%;
+            right: 35%;
             width: 2391px;
             width: clamp(1594px, 124.531vw, 2391px);
             height: 1521px;
@@ -302,8 +303,8 @@ footer {
         &::after {
             content: "";
             position: absolute;
-            right: -50%;
-            bottom: -40%;
+            top: 80%;
+            left: 40%;
             width: 1702px;
             width: clamp(1134.6px, 88.646vw, 1702px);
             height: 939px;

@@ -398,6 +398,7 @@ footer .sub-ft-inner .copyright {
   justify-content: space-between;
   align-items: flex-start;
   overflow: hidden;
+  z-index: 2;
 }
 @media (max-width: 1280px) {
   .main-visual .inner {
@@ -420,8 +421,8 @@ footer .sub-ft-inner .copyright {
 .main-visual .inner::before {
   content: "";
   position: absolute;
-  top: -70%;
-  left: -50%;
+  bottom: 5%;
+  right: 35%;
   width: 2391px;
   width: clamp(1594px, 124.531vw, 2391px);
   height: 1521px;
@@ -435,8 +436,8 @@ footer .sub-ft-inner .copyright {
 .main-visual .inner::after {
   content: "";
   position: absolute;
-  right: -50%;
-  bottom: -40%;
+  top: 80%;
+  left: 40%;
   width: 1702px;
   width: clamp(1134.6px, 88.646vw, 1702px);
   height: 939px;
