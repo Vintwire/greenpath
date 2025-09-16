@@ -297,6 +297,7 @@ footer {
             border-radius: 2391px;
             background: radial-gradient(97.28% 85.39% at 42.98% 15.11%, rgba(0, 51, 177, 0.79) 0%, rgba(196, 215, 255, 0.79) 81.17%, rgba(196, 215, 255, 0.00) 100%);
             filter: blur(100px);
+            z-index: 1;
         }
         &::after {
             content: "";
@@ -365,10 +366,19 @@ footer {
                 top: 105px;
                 transform: translateX(-50%);
             }
-            > img {
+            > .pc-img {
                 width: 100%;
                 height: 100%;
                 object-fit: contain;
+                @include util.tablet_junction {
+                    display: none;
+                }
+            }
+            > .mo-img {
+                display: none;
+                @include util.tablet_junction {
+                    display: block;
+                }
             }
         }
         .download-wrap {
@@ -534,7 +544,11 @@ footer {
                     background: util.$white;
                 }
             }
+            @include util.mobile_junction {
+                padding: 0 20px;
+            }
             .nav-btn {
+                color: util.$black;
                 padding: 0;
                 margin: 0;
                 background: transparent;
@@ -579,6 +593,9 @@ footer {
                 padding-left: 60px;
                 background: util.$white;
                 display: none;
+            }
+            @include util.mobile_junction {
+                padding-left: 20px;
             }
             .move-control {
                 @include util.flexbox(column, flex-start, flex-start);
@@ -1101,8 +1118,8 @@ footer {
             .swiper-slide {
                 height: 646px;
                 height: clamp(430.6px, 33.646vw, 646px);
-                padding: 100px 0 0 120px;
-                padding: clamp(45px, 5.208vw, 100px) 0 0 clamp(20px, 6.25vw ,120px);
+                padding: 100px 120px 0 120px;
+                padding: clamp(45px, 5.208vw, 100px) clamp(20px, 6.25vw ,120px) 0 clamp(20px, 6.25vw ,120px);
                 @include util.flexbox(row, flex-start, flex-start);
                 border-radius: 40px;
                 @include util.mobile_junction {
@@ -1149,6 +1166,9 @@ footer {
                         font-size: clamp(14px, 1.042vw, 20px);
                         font-weight: 500;
                         line-height: 1.7;
+                        @include util.mobile_junction {
+                            font-weight: 300;
+                        }
                     }
                 }
                 .txt-wrap {
@@ -1176,6 +1196,9 @@ footer {
                         font-size: 21px;
                         font-size: clamp(14px, 1.094vw, 21px);
                         line-height: 2.4;
+                        @include util.mobile_junction {
+                            line-height: 1.7;
+                        }
                     }
                     ul {
                         margin-top: 18px;
@@ -1188,6 +1211,9 @@ footer {
                             line-height: 2.4;
                             @include util.flexbox(row, flex-start, center);
                             gap: 12px;
+                            @include util.mobile_junction {
+                                line-height: 1.7;
+                            }
                             &::before {
                                 content: "";
                                 display: inline-block;
