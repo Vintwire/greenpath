@@ -371,16 +371,7 @@ footer {
                 width: 100%;
                 height: 100%;
                 object-fit: contain;
-                // @include util.tablet_junction {
-                //     display: none;
-                // }
             }
-            // > .mo-img {
-            //     display: none;
-            //     @include util.tablet_junction {
-            //         display: block;
-            //     }
-            // }
         }
         .download-wrap {
             @include util.tablet_junction {
@@ -723,7 +714,7 @@ footer {
                 bottom: auto;
                 max-width: 100%;
             }
-            > img {
+            object, img {
                 width: 100%;
                 height: 100%;
                 object-fit: contain;
@@ -935,7 +926,7 @@ footer {
                     width: 100%;
                     height: auto;
                 }
-                > img {
+                object, img {
                     width: 100%;
                     height: 100%;
                     border-radius: 30px;
@@ -1328,8 +1319,9 @@ footer {
             height: 454px;
             height: clamp(335px, 23.646vw, 454px);
             border-radius: 40px;
-            background: url(../../assets/images/common/map.png) no-repeat center/cover;
+            // background: url(../../assets/images/common/map.png) no-repeat center/cover;
             overflow: hidden;
+            @include util.flexbox(row, center, center);
             @include util.tablet_junction {
                 width: 700px;
             }
@@ -1338,6 +1330,9 @@ footer {
             }
             @include util.mobile_junction {
                 border-radius: 20px;
+            }
+            object, img {
+                height: 100%;
             }
         }
         .txt-wrap {
