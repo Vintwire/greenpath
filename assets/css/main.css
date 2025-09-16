@@ -512,23 +512,10 @@ footer .sub-ft-inner .copyright {
     transform: translateX(-50%);
   }
 }
-.main-visual .inner .app-img-wrap > .pc-img {
+.main-visual .inner .app-img-wrap object, .main-visual .inner .app-img-wrap img {
   width: 100%;
   height: 100%;
   object-fit: contain;
-}
-@media (max-width: 950px) {
-  .main-visual .inner .app-img-wrap > .pc-img {
-    display: none;
-  }
-}
-.main-visual .inner .app-img-wrap > .mo-img {
-  display: none;
-}
-@media (max-width: 950px) {
-  .main-visual .inner .app-img-wrap > .mo-img {
-    display: block;
-  }
 }
 @media (max-width: 950px) {
   .main-visual .inner .download-wrap {

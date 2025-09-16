@@ -367,20 +367,20 @@ footer {
                 top: 105px;
                 transform: translateX(-50%);
             }
-            > .pc-img {
+            object, img {
                 width: 100%;
                 height: 100%;
                 object-fit: contain;
-                @include util.tablet_junction {
-                    display: none;
-                }
+                // @include util.tablet_junction {
+                //     display: none;
+                // }
             }
-            > .mo-img {
-                display: none;
-                @include util.tablet_junction {
-                    display: block;
-                }
-            }
+            // > .mo-img {
+            //     display: none;
+            //     @include util.tablet_junction {
+            //         display: block;
+            //     }
+            // }
         }
         .download-wrap {
             @include util.tablet_junction {
