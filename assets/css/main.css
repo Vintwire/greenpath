@@ -87,6 +87,14 @@ body {
     top: -20px;
   }
 }
+@keyframes scrollArrow {
+  0% {
+    bottom: 20px;
+  }
+  100% {
+    bottom: 10px;
+  }
+}
 header {
   position: fixed;
   top: 0;
@@ -284,12 +292,16 @@ footer .ft-inner .ft-bottom .business-info li:first-child::before {
   }
 }
 footer .ft-inner .ft-bottom .copyright {
-  margin-bottom: 24px;
   color: #515E67;
   font-size: 16px;
   font-size: clamp(14px, 0.833vw, 16px);
   font-weight: 500;
   letter-spacing: -0.04em;
+}
+footer .ft-inner .ft-bottom .copyright-notice {
+  color: #515E67;
+  font-size: 10px;
+  margin-bottom: 24px;
 }
 footer .ft-inner .ft-bottom .util-wrap {
   display: flex;
@@ -385,6 +397,7 @@ footer .sub-ft-inner .copyright {
   width: 100%;
 }
 .main-visual .inner-wrap {
+  position: relative;
   width: 100%;
 }
 @media (max-width: 950px) {
@@ -396,6 +409,26 @@ footer .sub-ft-inner .copyright {
 @media (max-width: 560px) {
   .main-visual .inner-wrap {
     padding-top: 48px;
+  }
+}
+.main-visual .inner-wrap::before {
+  content: "";
+  display: inline-block;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 20px;
+  width: 58px;
+  width: clamp(29px, 3.021vw, 58px);
+  height: 22px;
+  height: clmap(11px, 1.146vw, 22px);
+  background: url(../../assets/images/icon/arrow_main_scroll.svg) no-repeat center/contain;
+  z-index: 5;
+  animation: scrollArrow 1s alternate infinite;
+}
+@media (max-width: 950px) {
+  .main-visual .inner-wrap::before {
+    display: none;
   }
 }
 .main-visual .inner {
@@ -415,6 +448,12 @@ footer .sub-ft-inner .copyright {
   justify-content: space-between;
   align-items: flex-start;
   overflow: hidden;
+  z-index: 2;
+}
+@media (max-width: 1280px) {
+  .main-visual .inner {
+    height: 660px;
+  }
 }
 @media (max-width: 950px) {
   .main-visual .inner {
@@ -443,6 +482,7 @@ footer .sub-ft-inner .copyright {
   border-radius: 2391px;
   background: radial-gradient(97.28% 85.39% at 42.98% 15.11%, rgba(0, 51, 177, 0.79) 0%, rgba(196, 215, 255, 0.79) 81.17%, rgba(196, 215, 255, 0) 100%);
   filter: blur(100px);
+  z-index: 1;
 }
 .main-visual .inner::after {
   content: "";
@@ -524,38 +564,34 @@ footer .sub-ft-inner .copyright {
     bottom: auto;
     top: 105px;
     transform: translateX(-50%);
-  }
-}
-@media (max-width: 560px) {
-  .main-visual .inner .app-img-wrap {
     width: 459px;
     height: 552px;
   }
 }
-.main-visual .inner .app-img-wrap img {
+.main-visual .inner .app-img-wrap object {
   position: absolute;
 }
-.main-visual .inner .app-img-wrap img.cleanon-app {
+.main-visual .inner .app-img-wrap object.cleanon-app {
   width: 449px;
   width: clamp(224.5px, 23.385vw, 449px);
   bottom: 0;
   left: 0;
   animation: floatingApp01 2s alternate-reverse infinite;
 }
-@media (max-width: 560px) {
-  .main-visual .inner .app-img-wrap img.cleanon-app {
+@media (max-width: 950px) {
+  .main-visual .inner .app-img-wrap object.cleanon-app {
     width: 279px;
   }
 }
-.main-visual .inner .app-img-wrap img.cleantok-app {
+.main-visual .inner .app-img-wrap object.cleantok-app {
   width: 563px;
   width: clamp(281.5px, 29.323vw, 563px);
   top: 0;
   right: 0;
   animation: floatingApp02 2s 0.2s alternate-reverse infinite;
 }
-@media (max-width: 560px) {
-  .main-visual .inner .app-img-wrap img.cleantok-app {
+@media (max-width: 950px) {
+  .main-visual .inner .app-img-wrap object.cleantok-app {
     width: 350px;
   }
 }
@@ -670,18 +706,37 @@ footer .sub-ft-inner .copyright {
     padding: 140px 0;
   }
 }
-.sec02 .inner p {
+.sec02 .inner .txt-wrap {
+  text-align: center;
+}
+.sec02 .inner .txt-wrap span.point {
+  color: transparent;
+  font-size: 50px;
+  font-size: clamp(28px, 2.604vw, 50px);
+  font-weight: 700;
+  text-align: center;
+  background: linear-gradient(90deg, #0049D7 0%, #00CAA1 59.13%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.sec02 .inner .txt-wrap span.word {
   color: #2E2E2E;
   font-size: 50px;
   font-size: clamp(28px, 2.604vw, 50px);
   font-weight: 700;
   text-align: center;
 }
-.sec02 .inner p span {
-  background: linear-gradient(90deg, #0049D7 0%, #00CAA1 59.13%);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+.sec02 .inner .txt-wrap span.word .letter {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+  will-change: opacity, transform;
+}
+.sec02 .inner .txt-wrap span.word .letter.on {
+  opacity: 1;
+  transform: none;
 }
 
 .move-area {
@@ -742,7 +797,13 @@ footer .sub-ft-inner .copyright {
     background: #fff;
   }
 }
+@media (max-width: 560px) {
+  .move-area .nav-wrap .nav-btn-wrap {
+    padding: 0 20px;
+  }
+}
 .move-area .nav-wrap .nav-btn-wrap .nav-btn {
+  color: #2E2E2E;
   padding: 0;
   margin: 0;
   background: transparent;
@@ -787,6 +848,11 @@ footer .sub-ft-inner .copyright {
     padding-left: 60px;
     background: #fff;
     display: none;
+  }
+}
+@media (max-width: 560px) {
+  .move-area .nav-wrap nav {
+    padding-left: 20px;
   }
 }
 .move-area .nav-wrap nav .move-control {
@@ -938,7 +1004,8 @@ footer .sub-ft-inner .copyright {
     max-width: 100%;
   }
 }
-.main-sec .inner .app-img-wrap > img {
+.main-sec .inner .app-img-wrap object, .main-sec .inner .app-img-wrap img {
+  display: block;
   width: 100%;
   height: 100%;
   object-fit: contain;
@@ -1164,14 +1231,14 @@ footer .sub-ft-inner .copyright {
     height: auto;
   }
 }
-.detail-sec .inner .detail-info .img-wrap > img {
+.detail-sec .inner .detail-info .img-wrap object, .detail-sec .inner .detail-info .img-wrap img {
   width: 100%;
   height: 100%;
   border-radius: 30px;
   object-fit: contain;
 }
 @media (max-width: 560px) {
-  .detail-sec .inner .detail-info .img-wrap > img {
+  .detail-sec .inner .detail-info .img-wrap object, .detail-sec .inner .detail-info .img-wrap img {
     height: auto;
     border-radius: 15px;
   }
@@ -1386,8 +1453,8 @@ footer .sub-ft-inner .copyright {
 .slide-cont .company-slide-wrap .company-slide .swiper-slide {
   height: 646px;
   height: clamp(430.6px, 33.646vw, 646px);
-  padding: 100px 0 0 120px;
-  padding: clamp(45px, 5.208vw, 100px) 0 0 clamp(20px, 6.25vw, 120px);
+  padding: 100px 120px 0 120px;
+  padding: clamp(45px, 5.208vw, 100px) clamp(20px, 6.25vw, 120px) 0 clamp(20px, 6.25vw, 120px);
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
@@ -1453,6 +1520,11 @@ footer .sub-ft-inner .copyright {
   font-weight: 500;
   line-height: 1.7;
 }
+@media (max-width: 560px) {
+  .slide-cont .company-slide-wrap .company-slide .swiper-slide .main-txt-wrap p {
+    font-weight: 300;
+  }
+}
 .slide-cont .company-slide-wrap .company-slide .swiper-slide .txt-wrap {
   display: flex;
   flex-direction: column;
@@ -1485,6 +1557,11 @@ footer .sub-ft-inner .copyright {
   font-size: clamp(14px, 1.094vw, 21px);
   line-height: 2.4;
 }
+@media (max-width: 560px) {
+  .slide-cont .company-slide-wrap .company-slide .swiper-slide .txt-wrap p {
+    line-height: 1.7;
+  }
+}
 .slide-cont .company-slide-wrap .company-slide .swiper-slide .txt-wrap ul {
   margin-top: 18px;
   display: flex;
@@ -1503,6 +1580,11 @@ footer .sub-ft-inner .copyright {
   justify-content: flex-start;
   align-items: center;
   gap: 12px;
+}
+@media (max-width: 560px) {
+  .slide-cont .company-slide-wrap .company-slide .swiper-slide .txt-wrap ul li {
+    line-height: 1.7;
+  }
 }
 .slide-cont .company-slide-wrap .company-slide .swiper-slide .txt-wrap ul li::before {
   content: "";
@@ -1635,8 +1717,11 @@ footer .sub-ft-inner .copyright {
   height: 454px;
   height: clamp(335px, 23.646vw, 454px);
   border-radius: 40px;
-  background: url(../../assets/images/common/map.png) no-repeat center/cover;
   overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }
 @media (max-width: 950px) {
   .contact-cont .contact-wrap .map {
@@ -1652,6 +1737,9 @@ footer .sub-ft-inner .copyright {
   .contact-cont .contact-wrap .map {
     border-radius: 20px;
   }
+}
+.contact-cont .contact-wrap .map object, .contact-cont .contact-wrap .map img {
+  height: 100%;
 }
 .contact-cont .contact-wrap .txt-wrap strong {
   color: #515E67;

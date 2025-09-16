@@ -396,4 +396,116 @@ $(function () {
     });
 
 
+
+
+
+
+
+
+
+    $(function () {
+        const $main   = $('.main');
+        const $first  = $main.find('section').eq(0);
+        const $second = $main.find('section').eq(1);
+        if (!$first.length || !$second.length) return;
+
+        const $header = $('header');
+        const $html   = $('html');
+        const $word   = $second.find('.word');
+
+        let isSnapping = false;   // 애니 중 중복 방지
+        let played = false;       // .word 애니는 1회만
+
+        // .word 분해 (br 보존)
+        function prepareWord($els) {
+            $els.each(function () {
+                const node = this;
+                const frag = document.createDocumentFragment();
+                Array.from(node.childNodes).forEach(n => {
+                    if (n.nodeType === 3) {
+                        for (const ch of Array.from(n.textContent)) {
+                            const s = document.createElement('span');
+                            s.className = 'letter';
+                            s.textContent = ch === ' ' ? '\u00A0' : ch;
+                            frag.appendChild(s);
+                        }
+                    } else if (n.nodeType === 1 && n.tagName === 'BR') {
+                        frag.appendChild(n.cloneNode(false));
+                    }
+                });
+                node.innerHTML = '';
+                node.appendChild(frag);
+            });
+        }
+
+        // 첫 섹션이 화면에 충분히 보이는지(스냅 오작동 방지)
+        function firstDominant(threshold = 0.2) {
+            const winH = window.innerHeight;
+            const r = $first[0].getBoundingClientRect();
+            const visible = Math.max(0, Math.min(winH, r.bottom) - Math.max(0, r.top));
+            return (visible / winH) >= threshold;
+        }
+
+        function playWord() {
+            if (played) return;
+            played = true;
+            $word.find('.letter').each(function (i) {
+                setTimeout(() => $(this).addClass('on'), 500 + i * 50);
+            });
+        }
+
+        // 준비
+        prepareWord($word);
+
+        // 1섹션 → 2섹션 스냅 (항상 재실행)
+        $first.on('wheel.snapToSecond', function (e) {
+            if (isSnapping) return;
+
+            const dy = e.originalEvent.deltaY || 0;
+            if (dy <= 0) return;                // 위로는 무시
+            if (!firstDominant()) return;       // 첫 섹션이 충분히 보일 때만
+
+            if (e.cancelable) e.preventDefault();
+            isSnapping = true;
+
+            const prevBehavior = $html.css('scroll-behavior');
+            $html.css('scroll-behavior', 'auto');
+
+            const headerH  = $header.outerHeight() || 0;
+            const targetTop = Math.max(0, $second.offset().top - headerH);
+
+            $('html, body').stop(true).animate(
+            { scrollTop: targetTop }, 600, 'swing', function () {
+                $html.css('scroll-behavior', prevBehavior);
+                isSnapping = false;   // ← 애니 끝나면 다시 스냅 가능
+                playWord();           // 도착 후 .word 1회 애니
+            }
+            );
+        });
+
+        // 자연 스크롤로 내려간 경우도 .word 1회 재생
+        if ('IntersectionObserver' in window) {
+            const io = new IntersectionObserver((entries, obs) => {
+            entries.forEach(en => { if (en.isIntersecting) { playWord(); obs.disconnect(); } });
+            }, { threshold: 0.4 });
+            io.observe($second[0]);
+        } else {
+            $(window).on('scroll.wordOnce', function () {
+            const headerH = $header.outerHeight() || 0;
+            const triggerY = $second.offset().top - headerH - window.innerHeight * 0.4;
+            if (!played && $(this).scrollTop() >= triggerY) {
+                playWord();
+                $(window).off('scroll.wordOnce');
+            }
+            });
+        }
+    });
+
+
+
+
+
+
+
+
 });
