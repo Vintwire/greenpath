@@ -21,6 +21,7 @@
 
     <!-- css -->
     <link rel="stylesheet" href="./assets/css/swiper-bundle.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="./assets/css/reset.css">
     <link rel="stylesheet" href="./assets/css/font.css">
     <link rel="stylesheet" href="./assets/css/main.css">
@@ -28,6 +29,7 @@
     <!-- js -->
     <script src="./assets/js/jquery-3.7.1.min.js"></script>
     <script src="./assets/js/swiper-bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="./assets/js/common.js"></script>
 
     <!-- 이미지 프리로드 -->
@@ -124,23 +126,23 @@
                     <section class="cleanon-main-sec main-sec">
                         <div class="inner">
                             <div class="txt-wrap">
-                                <ul class="tag-list">
+                                <ul class="tag-list" data-aos="fade-up" data-aos-duration="1000">
                                     <li>수집 운반업체용</li>
                                     <li>B2B</li>
                                     <li>DX Platform</li>
                                 </ul>
-                                <p class="main-copy">
+                                <p class="main-copy" data-aos="fade-up" data-aos-duration="1000">
                                     생활 폐기물 수집·운반 과정을 디지털로 전환하여<br>
                                     효율성과 안전을 극대화하는 국내 최초 생활 폐기물 DX 플랫폼
                                 </p>
-                                <strong class="main-tit">CleanON</strong>
+                                <strong class="main-tit" data-aos="fade-up" data-aos-duration="1000">CleanON</strong>
                             </div>
-                            <div class="app-img-wrap">
+                            <div class="app-img-wrap" data-aos="fade-left" data-aos-duration="2000">
                                 <object data="./assets/images/common/app_cleanon.svg" type="image/svg+xml">
                                     <img src="./assets/images/common/app_cleanon.svg" alt="클린온 앱 이미지">
                                 </object>
                             </div>
-                            <div class="download-wrap">
+                            <div class="download-wrap" data-aos="fade-up" data-aos-duration="1000">
                                 <button class="android-btn" type="button" onclick="window.open('https://on.cleanpath.co.kr/')"><span>Google Play</span></button>
                                 <button class="ios-btn" type="button" onclick="window.open('https://on.cleanpath.co.kr/')"><span>App Store</span></button>
                                 <button class="cleanon-down-btn" type="button" onclick="window.open('https://on.cleanpath.co.kr/')"><span>다운로드</span></button>
@@ -155,11 +157,39 @@
                                     <span class="point">안전</span>
                                     <strong class="main-tit">중대재해 예방 및 대처를 위한<br>스마트 TBM<span>(작업전 안전점검회의)</span>관리</strong>
                                 </div>
-                                <div class="img-wrap">
+                                <div class="motion-wrap">
+                                    <ul>
+                                        <li class="item01">
+                                            <object class="img-before" data="./assets/images/common/cleanon_detail/item01_01.svg" type="image/svg+xml">
+                                                <img src="./assets/images/common/cleanon_detail/item01_01.svg" alt="회의 내용 확인 전">
+                                            </object>
+                                            <object class="img-after" data="./assets/images/common/cleanon_detail/item01_02.svg" type="image/svg+xml">
+                                                <img src="./assets/images/common/cleanon_detail/item01_02.svg" alt="회의 내용 확인 후">
+                                            </object>
+                                        </li>
+                                        <li class="item02">
+                                            <object class="img-before" data="./assets/images/common/cleanon_detail/item01_03.svg" type="image/svg+xml">
+                                                <img src="./assets/images/common/cleanon_detail/item01_01.svg" alt="안전보건관리점검 항목 확인 전">
+                                            </object>
+                                            <object class="img-after" data="./assets/images/common/cleanon_detail/item01_04.svg" type="image/svg+xml">
+                                                <img src="./assets/images/common/cleanon_detail/item01_02.svg" alt="안전보건관리점검 항목 확인 후">
+                                            </object>
+                                        </li>
+                                        <li class="item03">
+                                            <object class="img-before" data="./assets/images/common/cleanon_detail/item01_05.svg" type="image/svg+xml">
+                                                <img src="./assets/images/common/cleanon_detail/item01_01.svg" alt="위험성평가 조치여부 확인 전">
+                                            </object>
+                                            <object class="img-after" data="./assets/images/common/cleanon_detail/item01_06.svg" type="image/svg+xml">
+                                                <img src="./assets/images/common/cleanon_detail/item01_02.svg" alt="위험성평가 조치여부 확인 후">
+                                            </object>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <!-- <div class="img-wrap">
                                     <object data="./assets/images/common/cleanon_detail_info_item01.svg" type="image/svg+xml">
                                         <img src="./assets/images/common/cleanon_detail_info_item01.svg" alt="클린온 상세 정보 이미지">
                                     </object>
-                                </div>
+                                </div> -->
                                 <div class="txt-wrap">
                                     <div class="top-wrap">
                                         <span class="point">안전</span>
@@ -210,9 +240,44 @@
                                     <span class="point">데이터</span>
                                     <strong class="main-tit">폐기물 수집 운반 효율성 극대화 <br>및 민원 연동</strong>
                                 </div>
-                                <div class="img-wrap">
-                                    <object data="./assets/images/common/cleanon_detail_info_item03.svg" type="image/svg+xml">
-                                        <img src="./assets/images/common/cleanon_detail_info_item03.svg" alt="클린온 상세 정보 이미지">
+                                <div class="motion-wrap02">
+                                    <div class="chk-cont">
+                                        <div class="chk-wrap">
+                                            <div class="checkmark">
+                                                <svg class="check" viewBox="0 0 120 120" aria-hidden="true">
+                                                    <circle class="bg" cx="60" cy="60" r="58" />
+                                                    <path class="tick" pathLength="100" d="M35 62 L53 78 L85 42" />
+                                                </svg>
+                                            </div>
+                                            <span class="txt">접수</span>
+                                        </div>
+                                        <div class="progress-wrap">
+                                            <span class="progress"></span>
+                                        </div>
+                                        <div class="chk-wrap">
+                                            <div class="checkmark">
+                                                <svg class="check" viewBox="0 0 120 120" aria-hidden="true">
+                                                    <circle class="bg" cx="60" cy="60" r="58" />
+                                                    <path class="tick" pathLength="100" d="M35 62 L53 78 L85 42" />
+                                                </svg>
+                                            </div>
+                                            <span class="txt">진행</span>
+                                        </div>
+                                        <div class="progress-wrap">
+                                            <span class="progress"></span>
+                                        </div>
+                                        <div class="chk-wrap">
+                                            <div class="checkmark">
+                                                <svg class="check" viewBox="0 0 120 120" aria-hidden="true">
+                                                    <circle class="bg" cx="60" cy="60" r="58" />
+                                                    <path class="tick" pathLength="100" d="M35 62 L53 78 L85 42" />
+                                                </svg>
+                                            </div>
+                                            <span class="txt">완료</span>
+                                        </div>
+                                    </div>
+                                    <object class="truck" data="./assets/images/common/cleanon_detail/truck.svg" type="image/svg+xml">
+                                        <img src="./assets/images/common/cleanon_detail/truck.svg" alt="트럭">
                                     </object>
                                 </div>
                                 <div class="txt-wrap">
@@ -288,23 +353,23 @@
                     <section class="cleantok-main-sec main-sec">
                         <div class="inner">
                             <div class="txt-wrap">
-                                <ul class="tag-list">
+                                <ul class="tag-list" data-aos="fade-up" data-aos-duration="1000">
                                     <li>주민, 지자체용</li>
                                     <li>B2C</li>
                                     <li>DX Platform</li>
                                 </ul>
-                                <p class="main-copy">
+                                <p class="main-copy" data-aos="fade-up" data-aos-duration="1000">
                                     사진 촬영만으로 간단하게! 접수부터 처리·완료·평가까지<br>
                                     원스톱으로 해결되는 스마트 폐기물 민원 플랫폼
                                 </p>
-                                <strong class="main-tit">CleanTOK</strong>
+                                <strong class="main-tit" data-aos="fade-up" data-aos-duration="1000">CleanTOK</strong>
                             </div>
-                            <div class="app-img-wrap">
+                            <div class="app-img-wrap" data-aos="fade-left" data-aos-duration="2000">
                                 <object data="./assets/images/common/app_cleantok.svg" type="image/svg+xml">
                                     <img src="./assets/images/common/app_cleantok.svg" alt="클린톡 앱 이미지">
                                 </object>
                             </div>
-                            <div class="download-wrap">
+                            <div class="download-wrap" data-aos="fade-up" data-aos-duration="1000">
                                 <button class="android-btn" type="button" onclick="javascript:alert('서비스 준비중입니다.')"><span>Google Play</span></button>
                                 <button class="ios-btn" type="button" onclick="javascript:alert('서비스 준비중입니다.')"><span>App Store</span></button>
                                 <button class="cleantok-down-btn" type="button" onclick="javascript:alert('서비스 준비중입니다.')"><span>다운로드</span></button>
@@ -319,10 +384,10 @@
                                     <span class="point blue">민원</span>
                                     <strong class="main-tit">간편 민원 신고</strong>
                                 </div>
-                                <div class="img-wrap">
-                                    <object data="./assets/images/common/cleantok_detail_info_item01.svg" type="image/svg+xml">
-                                        <img src="./assets/images/common/cleantok_detail_info_item01.svg" alt="클린톡 상세 정보 이미지">
-                                    </object>
+                                <div class="motion-wrap03">
+                                    <img class="photo-before" src="./assets/images/common/cleantok_detail/item01_01.png" alt="사진 촬영 전">
+                                    <img class="photo-after" src="./assets/images/common/cleantok_detail/item01_02.png" alt="사진 촬영 후">
+
                                 </div>
                                 <div class="txt-wrap">
                                     <div class="top-wrap">
@@ -369,9 +434,12 @@
                                     <span class="point blue">소통</span>
                                     <strong class="main-tit">소통 강화와 민원 만족도 평가</strong>
                                 </div>
-                                <div class="img-wrap">
-                                    <object data="./assets/images/common/cleantok_detail_info_item03.svg" type="image/svg+xml">
-                                        <img src="./assets/images/common/cleantok_detail_info_item03.svg" alt="클린톡 상세 정보 이미지">
+                                <div class="motion-wrap04">
+                                    <object class="fax" data="./assets/images/common/cleantok_detail/item03_01.svg" type="image/svg+xml">
+                                        <img src="./assets/images/common/cleantok_detail/item03_01.svg" alt="클린톡 상세 정보 이미지">
+                                    </object>
+                                    <object class="paper" data="./assets/images/common/cleantok_detail/item03_02.svg" type="image/svg+xml">
+                                        <img src="./assets/images/common/cleantok_detail/item03_02.svg" alt="클린톡 상세 정보 이미지">
                                     </object>
                                 </div>
                                 <div class="txt-wrap">
