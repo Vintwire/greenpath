@@ -30,6 +30,8 @@ $(function () {
     let areaBottom = 0;
     let ticking = false;        // scroll rAF throttle
     let resizeTick = false;     // resize rAF debounce
+    let isCompanyExpanded = false; // 풀스크린 확장 상태인지 여부
+    let companyRO = null;
 
     // ========================
     // 유틸
@@ -171,6 +173,15 @@ $(function () {
         const dir = y > lastY ? 'down' : (y < lastY ? 'up' : 'none');
         const inside = inMoveArea(y);
 
+        // GSAP 확장 상태면 여기서 고정하고, 아래 헤더 토글 분기 스킵
+        if (isCompanyExpanded) {
+            if (!$header.hasClass('is-hide')) $header.addClass('is-hide');
+            if (!$navWrap.hasClass('on-company')) $navWrap.addClass('on-company');
+
+            lastY = y;
+            return;
+        }
+
         // 헤더 show/hide (기존 유지)
         if (inside) {
             if (dir === 'down') $header.addClass('is-hide');
@@ -200,20 +211,20 @@ $(function () {
             $navWrap.removeClass('reveal');
         }
 
-    // nav-btn-wrap 방향 토글 (보호 포함)
-    if (isMobile()) {
-        const menuActive = $navBtn.hasClass('on') || $menu.is(':visible') || $menu.is(':animated');
-        if (menuActive) {
-            $navBtnWrap.removeClass('is-hide');
+        // nav-btn-wrap 방향 토글 (보호 포함)
+        if (isMobile()) {
+            const menuActive = $navBtn.hasClass('on') || $menu.is(':visible') || $menu.is(':animated');
+            if (menuActive) {
+                $navBtnWrap.removeClass('is-hide');
+            } else {
+                if (y < lastY) $navBtnWrap.addClass('is-hide');
+                else if (y > lastY) $navBtnWrap.removeClass('is-hide');
+            }
         } else {
-            if (y < lastY) $navBtnWrap.addClass('is-hide');
-            else if (y > lastY) $navBtnWrap.removeClass('is-hide');
+            $navBtnWrap.removeClass('is-hide');
         }
-    } else {
-        $navBtnWrap.removeClass('is-hide');
-    }
 
-    lastY = y;
+        lastY = y;
     }
 
     // scroll: rAF 스로틀
@@ -261,6 +272,7 @@ $(function () {
                 isMobileMode = isMobile();
 
                 recalcAreaBounds();
+                // recalcCompanyBounds();
 
                 if (prevMode !== isMobileMode) {
                     // 모드 바뀜 -> 상태 리셋
@@ -276,7 +288,7 @@ $(function () {
                     } else {
                         $menu.stop(true, true).show();
                         $navWrap.removeClass('reveal on'); // 데스크톱에서는 의미 없음
-                        $header.removeClass('is-hide');
+                        if (!isCompanyExpanded) $header.removeClass('is-hide');
                     }
                     syncNavBtnLabel();
                 } else {
@@ -741,10 +753,239 @@ $(function () {
         }
     });
 
+    // 클린톡 세번째 상세 설명 모션
+    const $paperSections = $('.detail-sec').has('.paper'); // paper 가진 섹션만
+
+    const options = {
+        root: null,
+        threshold: 0.6
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            const $sec = $(entry.target);
+            const $paper = $sec.find('.paper');
+
+            if (entry.isIntersecting) {
+                $paper.addClass('is-play');
+            } else {
+                $paper.removeClass('is-play');
+            }
+        });
+    }, options);
+
+    $paperSections.each(function () {
+        observer.observe(this);
+    });
+
+
+
+    // 회사소개
+    gsap.registerPlugin(ScrollTrigger);
+
+    window.addEventListener("load", () => {
+        let companyCtx = null;       // gsap.context 저장
+        let companyTL  = null;       // 타임라인 저장
+
+        function buildCompanyTimeline() {
+            // 이전 타임라인/핸들러 깨끗하게 제거
+            if (companyCtx) companyCtx.revert(true);
+            companyCtx = gsap.context(() => {
+                const section  = document.querySelector("#companyCont .company-sec");
+                if (!section) return;
+                const fullImg  = section.querySelector(".full_img");
+                const bgStack  = section.querySelector(".bg-stack");
+                const bTxt     = section.querySelector(".b_txt");
+                const images   = gsap.utils.toArray(section.querySelectorAll(".bg-img"));
+                const steps    = gsap.utils.toArray(section.querySelectorAll(".b_txt .step"));
+
+                // 원래 인라인 스타일 저장(리버트 시 복구)
+                // 기존: ScrollTrigger.saveStyles([bgStack, steps]);
+                ScrollTrigger.saveStyles([fullImg, bgStack, bTxt, images, ...steps]);
+
+
+                // 측정 함수
+                function measure() {
+                    const fullW = fullImg.clientWidth;
+                    const fullH = fullImg.clientHeight;
+                    const r     = bgStack.getBoundingClientRect();
+                    const p     = fullImg.getBoundingClientRect();
+                    const cs    = getComputedStyle(bgStack);
+                    const right = parseFloat(cs.right) || 0;
+                    const radius= parseFloat(cs.borderRadius) || 0;
+                    return {
+                        fullW, fullH,
+                        init: {
+                            width : r.width,
+                            height: r.height,
+                            right,
+                            top   : ((p.height - r.height) / 2), // px 중앙
+                            radius
+                        }
+                    };
+                }
+
+                // 초기 상태
+                gsap.set(steps, { yPercent: -50, opacity: 0, force3D: true });
+                if (steps[0]) gsap.set(steps[0], { opacity: 1 });
+
+                let dims = measure();
+                // const totalSegments = images.length + 2;
+                const EXPAND_TRIGGER_FRAC = 0.25; // “조금 일찍” 붙이기
+
+                // 전역 isCompanyExpanded(바깥에 있는 변수)와 타임라인 현재 위치를 동기화
+                function syncExpandedFromTimeline() {
+                    const t       = companyTL.time();
+                    const tStart  = companyTL.labels.expandStart ?? 0;
+                    const tDone   = companyTL.labels.expandDone  ?? (tStart + 1);
+                    const tShrink = companyTL.labels.shrinkStart ?? companyTL.duration();
+                    const tTrigger= tStart + (tDone - tStart) * EXPAND_TRIGGER_FRAC;
+                    isCompanyExpanded = (t >= tTrigger && t < tShrink); // ← 전역 값 갱신
+                }
+
+                // 토글 헬퍼
+                function applyExpandedClasses() {
+                    if (isCompanyExpanded) {
+                        $('header').addClass('is-hide');
+                        $('.nav-wrap').addClass('on-company');
+                    } else {
+                        $('header').removeClass('is-hide');
+                        $('.nav-wrap').removeClass('on-company');
+                    }
+                }
+
+                companyTL = gsap.timeline({
+                    defaults: { ease: "power2.out" },
+                    scrollTrigger: {
+                        trigger: fullImg,
+                        start: "top top",
+                        end: () => "+=" + (window.innerHeight * (images.length + 1.6)),
+                        scrub: true,
+                        pin: true,
+                        anticipatePin: 1,
+                        refreshPriority: 2,
+                        invalidateOnRefresh: true,
+                        onRefreshInit: () => { dims = measure(); },
+
+                        // 스크롤 진행 시: 먼저 전역 동기화 → 상태 바뀌었으면 클래스 적용
+                        onUpdate: () => {
+                            const prev = isCompanyExpanded;
+                            syncExpandedFromTimeline();
+                            if (isCompanyExpanded !== prev) applyExpandedClasses();
+                        },
+
+                        // 리프레시(리사이즈 등) 직후에도 현재 위치 기준으로 전역 동기화 + 적용
+                        onRefresh: () => {
+                            syncExpandedFromTimeline();
+                            applyExpandedClasses();
+                            gsap.set(bgStack, { top: "50%", yPercent: -50 }); // 리프레시 안정화
+                        }
+                    }
+                });
+
+                // 라벨 & 트윈
+                companyTL.addLabel('expandStart')
+                    .to(bgStack, {
+                        width: () => dims.fullW,
+                        height: () => dims.fullH,
+                        right: 0,
+                        top: "50%",
+                        yPercent: -50,
+                        borderRadius: 0,
+                        duration: 1
+                    }, 'expandStart')
+                    .addLabel('expandDone');
+
+                    images.forEach((img, i) => {
+                        const nextImg  = images[i + 1];
+                        const curStep  = steps[i];
+                        const nextStep = steps[i + 1];
+
+                        if (nextImg) {
+                            companyTL.to(img,     { opacity: 0, duration: 0.7 }, "+=0.05")
+                                    .to(nextImg, { opacity: 1, duration: 0.7 }, "<");
+                        }
+                        if (curStep && nextStep) {
+                            companyTL.to(curStep,  { yPercent: -300, opacity: 0, duration: 0.55 }, "<")
+                                    .fromTo(nextStep, { yPercent: 50, opacity: 0 },
+                                                    { yPercent: -50, opacity: 1, duration: 0.55, immediateRender:false }, "<");
+                        }
+                    });
+
+                companyTL.addLabel('shrinkStart')
+                .to(bgStack, {
+                    width:  () => dims.init.width,
+                    height: () => dims.init.height,
+                    right:  () => dims.init.right,
+                    top:    "50%",
+                    yPercent: -50,
+                    borderRadius: () => dims.init.radius,
+                    duration: 1,
+                    clearProps: "x,y"
+                }, "+=0.05")
+                    // 최종 스냅: 픽셀/퍼센트 기준 섞여 튀는 것 방지
+                .call(() => {
+                    gsap.set(bgStack, { top: "50%", yPercent: -50 });
+                });
+
+                // 빌드 직후에도 현재 위치 기준으로 1회 반영(초기 깜빡임 방지)
+                syncExpandedFromTimeline();
+                applyExpandedClasses();
+                
+            }, "#companyCont"); // context 스코프
+        }
+
+        // 리사이즈 즉시 반영 (더블 rAF)
+        function scheduleRebuild() {
+            requestAnimationFrame(() => {
+                requestAnimationFrame(() => {
+                    buildCompanyTimeline();
+                    recalcAreaBounds();
+                    ScrollTrigger.refresh();
+                });
+            });
+        }
+
+        // 최초
+        buildCompanyTimeline();
+        ScrollTrigger.refresh();
+
+        // 창 크기/방향 전환
+        window.addEventListener("resize", scheduleRebuild);
+        window.addEventListener("orientationchange", scheduleRebuild);
+
+        // 폰트 로드 완료 후도 한 번 더
+        if (document.fonts && document.fonts.ready) {
+            document.fonts.ready.then(scheduleRebuild);
+        }
+
+        // 리사이즈/방향전환 시 rAF 디바운스 후 재빌드
+        let rebuildId = null;
+        window.addEventListener("resize", () => {
+            cancelAnimationFrame(rebuildId);
+            rebuildId = requestAnimationFrame(() => {
+                buildCompanyTimeline();
+                ScrollTrigger.refresh();
+            });
+        });
+        window.addEventListener("orientationchange", () => {
+            buildCompanyTimeline();
+            ScrollTrigger.refresh();
+        });
+
+
+    });
+
+
 
 
 
 });
+
+
+
+
+
 
 
 $(function () {

@@ -30,6 +30,9 @@
     <script src="./assets/js/jquery-3.7.1.min.js"></script>
     <script src="./assets/js/swiper-bundle.min.js"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
     <script src="./assets/js/common.js"></script>
 
     <!-- 이미지 프리로드 -->
@@ -485,59 +488,57 @@
                 <div id="companyCont" class="move-sec">
                     <section class="company-sec">
                         <div class="inner">
-                            <div class="slide-cont">
-                                <div class="empty"></div>
-                                <div class="company-slide-wrap">
-                                    <div class="swiper-container company-slide">
-                                        <div class="swiper-wrapper">
-                                            <div class="swiper-slide slide01">
-                                                <div class="main-txt-wrap">
-                                                    <strong>GreenPATH,<br>새로운 표준을 만들다.</strong>
-                                                    <p>
-                                                        (주)그린패스는 디지털 기술로 생활폐기물 관리의<br>
-                                                        새로운 표준을 만들어갑니다.<br>
-                                                        우리는 ESG 경영과 탄소중립 실현을 목표로,<br>
-                                                        주민 · 자치단체 · 수집운반 업체 모두가 함께 성장할 수 있는<br class="d-pc">
-                                                        디지털 기반 관리 체계를 지원합니다.
-                                                    </p>
-                                                </div>
-                                            </div>
-                                            <div class="swiper-slide slide02">
-                                                <div class="txt-wrap">
-                                                    <span>01</span>
-                                                    <strong>변화와 과제</strong>
-                                                    <p>
-                                                        강화되는 중대재해처벌법 대응과 ESG 실천은<br>
-                                                        생활폐기물 업계가 더 이상 미룰 수 없는 <br class="d-mb">과제가 되었습니다.<br>
-                                                        단순한 수거·운반을 넘어 안전·보건 관리와 운영 효율성<br class="d-pc">
-                                                        그리고 지속가능성을 동시에 확보해야 합니다.
-                                                    </p>
-                                                </div>
-                                            </div>
-                                            <div class="swiper-slide slide03">
-                                                <div class="txt-wrap">
-                                                    <span>02</span>
-                                                    <strong>그린패스의 해답</strong>
-                                                    <ul>
-                                                        <li>스마트 데이터 관리로 비용 절감 & 효율 극대화</li>
-                                                        <li>안전·보건 강화로 중대재해 리스크 최소화</li>
-                                                        <li>ESG 경영 지원으로 사회적 가치 창출</li>
-                                                        <li>친환경 운행 관리로 탄소중립 실현</li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                            <div class="swiper-slide slide04">
-                                                <div class="txt-wrap">
-                                                    <span>03</span>
-                                                    <strong>우리의 약속</strong>
-                                                    <p>
-                                                        그린패스는  기술 혁신과 책임 경영을 통해<br>
-                                                        생활폐기물 관리 산업의 지속 가능한 <br class="d-mb">미래를 열어가겠습니다.
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="swiper-pagination"></div>
+                            <div class="full_img">
+                                <!-- 마스크(clip-path)는 여기만 건드림 -->
+                                <div class="bg-mask">
+                                    <div class="bg-stack">
+                                        <img class="bg-img layer-1" src="./assets/images/common/company_bg01.png" alt="회사 소개 배경 1">
+                                        <img class="bg-img layer-2" src="./assets/images/common/company_bg02.png" alt="회사 소개 배경 2">
+                                        <img class="bg-img layer-3" src="./assets/images/common/company_bg03.png" alt="회사 소개 배경 3">
+                                        <img class="bg-img layer-4" src="./assets/images/common/company_bg04.png" alt="회사 소개 배경 4">
+                                    </div>
+                                </div>
+                                <div class="b_txt">
+                                    <div class="step step-1 main-txt-wrap">
+                                        <p class="top_txt">
+                                            GreenPATH,<br>
+                                            새로운 표준을 만들다.
+                                        </p>
+                                        <p class="btm_txt">
+                                            (주)그린패스는 디지털 기술로 생활폐기물 관리의<br>
+                                            새로운 표준을 만들어갑니다.<br>
+                                            우리는 ESG 경영과 탄소중립 실현을 목표로,<br>
+                                            주민 · 자치단체 · 수집운반 업체 모두가 함께 성장할 수 있는<br>
+                                            디지털 기반 관리 체계를 지원합니다.
+                                        </p>
+                                    </div>
+                                    <div class="step step-2 common-txt-wrap">
+                                        <span>01</span>
+                                        <p class="top_txt">변화와 과제</p>
+                                        <p class="btm_txt">
+                                            강화되는 중대재해처벌법 대응과 ESG 실천은<br>
+                                            생활폐기물 업계가 더 이상 미룰 수 없는 과제가 되었습니다.<br>
+                                            단순한 수거·운반을 넘어 안전·보건 관리와 운영 효율성<br>
+                                            그리고 지속가능성을 동시에 확보해야 합니다.
+                                        </p>
+                                    </div>
+                                    <div class="step step-3 common-txt-wrap">
+                                        <span>02</span>
+                                    <p class="top_txt">그린패스의 해답</p>
+                                    <ul class="btm_txt">
+                                        <li>스마트 데이터 관리로 비용 절감 & 효율 극대화</li>
+                                        <li>안전·보건 강화로 중대재해 리스크 최소화</li>
+                                        <li>ESG 경영 지원으로 사회적 가치 창출</li>
+                                        <li>친환경 운행 관리로 탄소중립 실현</li>
+                                    </ul>
+                                    </div>
+                                    <div class="step step-4 common-txt-wrap">
+                                        <span>03</span>
+                                        <p class="top_txt">우리의 약속</p>
+                                        <p class="btm_txt">
+                                            그린패스는  기술 혁신과 책임 경영을 통해 <br>
+                                            생활폐기물 관리 산업의 지속 가능한 미래를 열어가겠습니다.
+                                        </p>
                                     </div>
                                 </div>
                             </div>
