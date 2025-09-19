@@ -103,6 +103,30 @@
     }
 }
 
+@keyframes rollingBg {
+    from { 
+        background-position-x: 100%; 
+    }
+
+    to { 
+        background-position-x: 0; 
+    }
+}
+
+@keyframes truckMove {
+    0% { 
+        right: 15%;
+    }
+
+    30% {
+        right: 25%;
+    }
+
+    100% { 
+        right: 20%;
+    }
+}
+
 header {
     position: fixed;
     top: 0;
@@ -937,19 +961,6 @@ footer {
                 object-fit: contain;
             }
         }
-        // .video-wrap {
-        //     position: absolute;
-        //     top: 10vw;
-        //     left: 50%;
-        //     transform: translateX(-50%);
-        //     width: 399px;
-        //     width: clamp(300px, 20.781vw, 399px);
-        //     z-index: 10;
-        //     @include util.flexbox(row, center, center);
-        //     video {
-        //         width: calc(100% - 3.4vw);
-        //     }
-        // }
         .download-wrap {
             @include util.flexbox(row, flex-start, center);
             gap: 12px;
@@ -1080,6 +1091,65 @@ footer {
                     color: #4972D7;
                 }
             }
+            .motion-wrap {
+                position: absolute;
+                right: 267px;
+                right: clamp(20px, 13.9vw, 267px);
+                bottom: 0;
+                width: 399px;
+                width: clamp(300px, 20.781vw, 399px);
+                height: 667px;
+                height: clamp(499px, 34.740vw, 667px);
+                z-index: 1;
+                overflow: hidden;
+                &::before {
+                    content: "";
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    border-radius: 60px;
+                    background: #C4D7FF;
+                    z-index: -1;
+                }
+                @include util.notebook {
+                    right: 50px;
+                }
+                @include util.tablet_junction {
+                    position: relative;
+                    right: auto;
+                    bottom: auto;
+                    max-width: 100%;
+                }
+                .app-img {
+                    position: relative;
+                    display: block;
+                    width: 100%;
+                    height: 100%;
+                    object-fit: contain;
+                    z-index: 3;
+                }
+                .rolling-bg {
+                    position: absolute;
+                    bottom: 42%;
+                    // width: 1237px;
+                    width: 100%;
+                    height: 8.4%;
+                    z-index: 1;
+                    animation: rollingBg 10s linear infinite;
+                    background: url(../../assets/images/common/rolling_item.svg) repeat-x;
+                }
+                .truck-img {
+                    position: absolute;
+                    right: 15%;
+                    bottom: 28%;
+                    // width: 202px;
+                    width: 50.6%;
+                    z-index: 2;
+                    animation: truckMove 5s linear infinite;
+                }
+            }
         }
     }
 }
@@ -1153,8 +1223,10 @@ footer {
                     margin: 20px 0;
                 }
                 @include util.mobile_junction {
-                    width: 100%;
-                    height: auto;
+                    // width: 335px;
+                    width: 89.333vw;
+                    // height: 252px;
+                    height: 67.2vw;
                 }
                 object, img {
                     width: 100%;
@@ -1174,21 +1246,27 @@ footer {
                     }
                 }
             }
-            .motion-wrap {
+            .motion {
+                position: relative;
                 width: 652px;
                 width: clamp(434.6px, 33.958vw, 652px);
                 height: 490px;
                 height: clamp(326.6px, 25.521vw, 490px);
                 overflow: hidden;
                 border-radius: 30px;
-                background: linear-gradient(0deg, rgba(0, 0, 0, 0.20) 0%, rgba(0, 0, 0, 0.20) 100%), #A5ADBE;
                 @include util.tablet_junction {
                     margin: 20px 0;
                 }
                 @include util.mobile_junction {
-                    width: 100%;
-                    height: auto;
+                    // width: 335px;
+                    width: 89.333vw;
+                    // height: 252px;
+                    height: 67.2vw;
+                    border-radius: 15px;
                 }
+            }
+            .motion-wrap {
+                background: linear-gradient(0deg, rgba(0, 0, 0, 0.20) 0%, rgba(0, 0, 0, 0.20) 100%), #A5ADBE;
                 ul {
                     position: relative;
                     width: 100%;
@@ -1237,37 +1315,34 @@ footer {
                 }
             }
             .motion-wrap02 {
-                position: relative;
-                width: 652px;
-                width: clamp(434.6px, 33.958vw, 652px);
-                height: 490px;
-                height: clamp(326.6px, 25.521vw, 490px);
-                overflow: hidden;
-                border-radius: 30px;
                 background: linear-gradient(0deg, #E7FAE8 0%, rgba(67, 202, 74, 0.50) 100%);
-                @include util.tablet_junction {
-                    margin: 20px 0;
-                }
-                @include util.mobile_junction {
-                    width: 100%;
-                    height: auto;
-                }
                 .chk-cont {
-                    width: calc(100% - 206px);
-                    margin: 44px auto 0;
-                    padding: 34px 32px 30px;
+                    // width: calc(100% - 206px);
+                    // width: clamp(229px, 23.229vw, 446px);
+                    width: 68.4%;
+                    // display: inline-block;
+                    // margin: 44px auto 0;
+                    margin: 6.8% auto 0;
+                    // padding: 34px 32px 30px;
+                    // padding: 1.771vw 1.667vw 1.563vw;
+                    padding: 5.2% 4.9% 4.7%;
                     border-radius: 20px;
                     background: #FFF;
                     box-shadow: 4px 4px 30px 0 rgba(6, 154, 14, 0.30);
                     @include util.flexbox(row, center, flex-start);
-                    gap: 15px;
+                    // gap: 15px;
+                    // gap: clamp(7px, 0.781vw, 15px);
+                    gap: 3.9%;
                     .chk-wrap {
                         @include util.flexbox(column, center, center);
                         gap: 19px;
+                        gap: clamp(9px, 0.990vw, 19px);
                         .checkmark {
                             display: inline-block;
                             width: 52px;
+                            width: clamp(26px, 2.708vw, 52px);
                             height: 52px;
+                            height: clamp(26px, 2.708vw, 52px);
                             border-radius: 50%;
                             background: rgba(81, 94, 103, 0.20);
                             &.is-play {
@@ -1302,18 +1377,22 @@ footer {
                             color: rgba(81, 94, 103, 0.80);
                             text-align: center;
                             font-size: 24px;
+                            font-size: clamp(12px, 1.25vw, 24px);
                             font-weight: 700;
                             letter-spacing: -0.02em;
                         }
                     }
                     .progress-wrap {
-                        height: 54px;
+                        height: 52px;
+                        height: clamp(26px, 2.708vw, 52px);
                         @include util.flexbox(row, center, center);
                         .progress {
                             position: relative;
                             display: block;
                             width: 83px;
+                            width: clamp(42px, 4.323vw, 83px);
                             height: 14px;
+                            height: clamp(7px, 0.729vw, 14px);
                             border-radius: 20px;
                             background: rgba(81, 94, 103, 0.20);
                             &::before {
@@ -1339,7 +1418,8 @@ footer {
                     position:absolute;
                     bottom:0;
                     left:50%;                 // 고정
-                    width:446px;              // 필요에 맞게 조정
+                    // width:446px;              // 필요에 맞게 조정
+                    width: 68.5%;
                     transition: transform .8s ease;
                     pointer-events:none;      // 선택: 이벤트 무시
                     &.no-anim { transition: none; }          // 순간 리셋용
@@ -1350,21 +1430,7 @@ footer {
                 }
             }
             .motion-wrap03 {
-                position: relative;
-                width: 652px;
-                width: clamp(434.6px, 33.958vw, 652px);
-                height: 490px;
-                height: clamp(326.6px, 25.521vw, 490px);
-                overflow: hidden;
-                border-radius: 30px;
                 background: transparent;
-                @include util.tablet_junction {
-                    margin: 20px 0;
-                }
-                @include util.mobile_junction {
-                    width: 100%;
-                    height: auto;
-                }
                 img {
                     display: block;
                     width: 100%;
@@ -1389,26 +1455,13 @@ footer {
                 }
             }
             .motion-wrap04 {
-                position: relative;
-                width: 652px;
-                width: clamp(434.6px, 33.958vw, 652px);
-                height: 490px;
-                height: clamp(326.6px, 25.521vw, 490px);
-                overflow: hidden;
-                border-radius: 30px;
                 background: linear-gradient(0deg, #A5ADBE 0%, #A5ADBE 100%), rgba(196, 215, 255, 0.70);
-                @include util.tablet_junction {
-                    margin: 20px 0;
-                }
-                @include util.mobile_junction {
-                    width: 100%;
-                    height: auto;
-                }
                 .fax {
                     position: absolute;
                     bottom: 0;
                     left: 50%;
                     transform: translateX(-50%);
+                    width: 69.8%;
                     z-index: 2;
                 }
                 .paper {
@@ -1416,6 +1469,7 @@ footer {
                     bottom: -100%;
                     left: 50%;
                     transform: translateX(-50%);
+                    width: 58.6%;
                     border-radius: 24px;
                     box-shadow: 0 -2px 60px 0 rgba(0, 0, 0, 0.20);
                     z-index: 1;
@@ -1482,7 +1536,7 @@ footer {
                         }
                         @include util.tablet_junction {
                             &.mo {
-                                display: block;
+                                display: flex;
                             }
                             &.pc {
                                 display: none;
@@ -1675,12 +1729,12 @@ footer {
     }
 
     .step {
-      position: absolute;
-      /* 원하는 고정 좌표 */
-      top: 50%;
-      left: 22.396vw;
-
-      opacity: 0;
+        position: absolute;
+        /* 원하는 고정 좌표 */
+        top: 50%;
+        //   left: 22.396vw;
+        left: 22.5%;
+        opacity: 0;
         &.step-1 { 
             opacity: 1; 
         }
